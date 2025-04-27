@@ -1,0 +1,5 @@
+Go to the following website:
+
+https://www.debian.org/distrib/netinst
+
+Click the link "amd64" in the "Small CDs or USB sticks" section.
