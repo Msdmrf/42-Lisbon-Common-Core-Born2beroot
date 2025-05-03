@@ -52,20 +52,25 @@ user_logins=$(w -h | wc -l)
 printf "#User log: %d\n" "$user_logins"
 
 # Network IP and MAC Address
-ip_addr=$(ip address show | grep "inet " | grep -v "127.0.0.1" | grep "enp" | head -n 1 | awk '{print $2}' | cut -d'/' -f1)
-interface=$(ip address show | grep "inet " | grep -v "127.0.0.1" | grep "enp" | head -n 1 | awk '{print $NF}')
-mac_addr=$(ip link show "$interface" | awk '/ether/ {print $2}')
+primary_interface=$(ip route | grep 'default' | awk '{print $5}')
+ip_addr=$(ip -o -4 addr show "$primary_interface" 2>/dev/null | awk '{print $4}' | cut -d'/' -f1)
+mac_addr=$(ip link show "$primary_interface" 2>/dev/null | grep 'ether' | awk '{print $2}')
 if [ -z "$ip_addr" ]; then
     ip_addr="Not found"
+fi
+if [ -z "$mac_addr" ]; then
     mac_addr="N/A"
 fi
 printf "#Network: IP %s (%s)\n" "$ip_addr" "$mac_addr"
 
 # Sudo Command Count
-sudo_log_file="/var/log/sudo/seq"
-sudo_count=0
-if [ -f "$sudo_log_file" ] && [ -r "$sudo_log_file" ]; then
-    sudo_seq=$(<"$sudo_log_file" tr '[:upper:]' '[:lower:]' | tr -cd '0-9a-z')
-    sudo_count=$(echo "obase=10; ibase=36; $sudo_seq" | bc 2>/dev/null || echo "0")
+if [ "$EUID" -ne 0 ]; then
+    printf "#Sudo: must be root or have sudo privileges\n"
+else
+    sudo_log_file="/var/log/sudo/seq"
+    sudo_count=0
+    if [ -f "$sudo_log_file" ] && [ -r "$sudo_log_file" ]; then
+        sudo_count=$(echo "obase=10; ibase=36; $(cat "$sudo_log_file")" | bc 2>/dev/null || echo "0")
+    fi
+    printf "#Sudo: %d cmd\n" "$sudo_count"
 fi
-printf "#Sudo: %d cmd\n" "$sudo_count"
