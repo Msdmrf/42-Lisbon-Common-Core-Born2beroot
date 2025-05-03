@@ -70,7 +70,7 @@ else
     sudo_log_file="/var/log/sudo/seq"
     sudo_count=0
     if [ -f "$sudo_log_file" ] && [ -r "$sudo_log_file" ]; then
-        sudo_count=$(echo "obase=10; ibase=36; $(cat "$sudo_log_file")" | bc 2>/dev/null || echo "0")
+        sudo_count=$(echo "obase=10; ibase=36; $(cat "$sudo_log_file")" | bc 2>/dev/null || echo "-1")
     fi
     printf "#Sudo: %d cmd\n" "$sudo_count"
 fi
