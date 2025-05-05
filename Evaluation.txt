@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 15:47:11 by migusant          #+#    #+#              #
-#    Updated: 2025/05/05 17:34:15 by migusant         ###   ########.fr        #
+#    Updated: 2025/05/05 19:46:03 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,16 +23,12 @@ General Guidelines:
     A simple diff should allow you to compare the two signatures. If needed, ask the evaluated person where their ".vdi" file is located.
       Path: 
         /home/migusant/sgoinfre/Born2beroot/Born2beroot.vdi
-      Check:
-        Manual Commands:
-          sha1sum /home/migusant/sgoinfre/Born2beroot/Born2beroot.vdi
-          cat signature.txt
-        Diff Command: 
-          diff <(sha1sum /home/migusant/sgoinfre/Born2beroot/Born2beroot.vdi | cut -d' ' -f1) <(cat signature.txt)
-        Diff Output:
-          If the signatures match, the diff command will produce no output.
-          If the signatures do not match, diff will show the lines that differ (i.e., the two different hashes).
-    4. Launch the virtual machine to be evaluated.
+      Diff Command: 
+        diff <(sha1sum /home/migusant/sgoinfre/Born2beroot/Born2beroot.vdi | cut -d' ' -f1) <(cat signature.txt)
+      Diff Output:
+        If the signatures match, the diff command will produce no output.
+        If the signatures do not match, diff will show the lines that differ (i.e., the two different hashes).
+    4. Launch the cloned virtual machine to be evaluated.
   If something does not work as expected or the two signatures differ, the evaluation stops here.
 
 Project Overview:
@@ -102,11 +98,17 @@ Simple Configuration
         whoami
       Expected Output:
         migusant
-      Check Graphical Environment Command:
+      Check Default Target for System Boot Command:
         systemctl get-default
       Expected Output:
-        If the output is graphical.target, it means your system is configured to boot into a GUI login manager and desktop. It is wrong.
-        If the output is multi-user.target, it means the system boots into a command-line environment. It is right. 
+        If we get multi-user.target, it indicates the system boots into a command-line environment.
+        If we get graphical.target, it indicates the system is configured to boot into a GUI login manager and desktop. If there is no GUI to boot to, it will boot to a command-line environment.
+      Check Graphical Environment Command:
+        dpkg -l | grep -E "xserver|gnome|kde|xfce|lxde"
+        or
+        ls /usr/bin | grep -E "startx|Xorg"
+      Expected Output:
+        If these commands return results, it means graphical packages are indeed installed.
     2. Then, with the help of the evaluator, make sure that:
       2.1 The chosen operating system is indeed Debian or Rocky.
         OS Command:
@@ -123,6 +125,39 @@ Simple Configuration
           systemctl status sshd
         Expected Output:
           Active: active (running)
-    If something does not work as expected or is not clearly explained, the evaluation stops here.
-      
+          Check the port to verify it's listening on the port specified in the subject (e.g., 4242) and not the default port 22.
+  If something does not work as expected or is not clearly explained, the evaluation stops here.
+
+User
+
+  As soon as you need help to verify a point, the evaluated person must be able to assist you:
+    1. The subject requires that a user with the login name of the evaluated person be present on the virtual machine. Verify that this user has been added 
+    and that they belong to the "sudo" and "user42" groups.
+      Check if Belongs Command:
+        id migusant or groups migusant
+      Expected Output:
+        Look for migusant's UID/GID information and verify that both sudo and user42 are listed in the groups= section of the output.
+    2. Ensure the rules imposed in the subject concerning the password policy have been implemented by following the steps below.
+      2.1 First, create a new user. Assign them a password of your choice, respecting the subject's rules.
+        Create user Command:
+          sudo adduser testuser
+        Create password Command:
+          sudo passwd testuser
+            If the policy is correctly implemented (e.g., via PAM modules like pam_pwquality), the system should:
+              Reject passwords that don't have at lease 10 characters.
+              Reject passwords that don't include at lease one uppercase.
+              Reject passwords that don't include at lease one lowercase.
+              Reject passwords that don't include at lease one digit.
+              Reject passwords that include username.
+            Eventually accept a password that does meet the criteria.
+      2.2 The evaluated person must now explain how they were able to implement the requested rules on their virtual machine.
+        "To implement the password policy, I needed to do two different things:
+          Password Aging/Expiration: I edited the /etc/login.defs file. Specifically, I set parameters like PASS_MAX_DAYS (e.g., to 30 or 90, as required) 
+          to force password changes, PASS_MIN_DAYS (e.g., to 2) to prevent immediate changes, and PASS_WARN_AGE (e.g., to 7) to warn users before expiration.
+          Password Strength/Complexity: I installed the libpam-pwquality package (if not present) and configured it by editing the /etc/pam.d/common-password 
+          file. I added or modified the line for pam_pwquality.so to include options specified in the subject, such as retry=3 (limit password attempts), 
+          minlen=10 (minimum length), dcredit=-1 (at least one digit), ucredit=-1 (at least one uppercase), lcredit=-1 (at least one lowercase), ocredit=-1 
+          (at least one special character), and potentially difok=7 (must differ from old password by 7 characters) and reject_username (prevent using username in password)."
+  If there is any problem, the evaluation stops here.
+    3. Now that you have a new user, ask the evaluated person to create a group named "evaluating" in front of you and assign it to this user.
       
