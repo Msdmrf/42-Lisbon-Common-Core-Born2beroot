@@ -1,4 +1,14 @@
-This txt file had my attempts of installing a VPN as an Additional Service.
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Wireguard.txt                                      :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/04 12:03:06 by migusant          #+#    #+#              #
+#    Updated: 2025/05/05 15:03:40 by migusant         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 # Generate keys (private key saved to server.key, public key printed to stdout)
 Standard Input:  wg genkey | sudo tee server.key | wg pubkey | sudo tee server.pub
