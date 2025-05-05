@@ -1,0 +1,34 @@
+This txt file had my attempts of installing a VPN as an Additional Service.
+
+# Generate keys (private key saved to server.key, public key printed to stdout)
+Standard Input:  wg genkey | sudo tee server.key | wg pubkey | sudo tee server.pub
+Standard Output: DBfC6SZYBtM6KuTt7oz4k48cefxneQnZNHaNwJr9wDo=
+
+# Check the private key that was saved to server.key
+Standard Input:  sudo cat /etc/wireguard/server.key
+Standard Output: aEaFgOGem+P4GMqYMaQkIEHUnz2g4e0akB4/Htm5hGc=
+
+[Interface]
+# Private IP range for the VPN
+Address = 10.0.0.1/24                                     
+# Default WireGuard port (UDP)
+ListenPort = 51820 
+# Replace with the server's private key
+PrivateKey = aEaFgOGem+P4GMqYMaQkIEHUnz2g4e0akB4/Htm5hGc= 
+# Optional: Saves changes made by `wg` command
+SaveConfig = false 
+
+# Enable NAT for client traffic
+PostUp = ufw route allow in on wg0 out on enp0s3
+PostUp = iptables -t nat -I POSTROUTING -o enp0s3 -j MASQUERADE
+PreDown = ufw route delete allow in on wg0 out on enp0s3
+PreDown = iptables -t nat -D POSTROUTING -o enp0s3 -j MASQUERADE
+
+[Peer]
+PublicKey = 7nPjbcv4fcBJUyrGzkg2Nmj+tCRpOxzF8Si70SbCTnI=
+AllowedIPs = 10.0.0.2/32
+
+# Add client peers below
+# [Peer]
+# PublicKey = <CLIENT_PUBLIC_KEY_HERE>
+# AllowedIPs = 10.0.0.2/32  # Unique IP from the VPN range
