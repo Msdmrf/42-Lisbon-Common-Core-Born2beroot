@@ -1,0 +1,128 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Evaluation.txt                                     :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/05 15:47:11 by migusant          #+#    #+#              #
+#    Updated: 2025/05/05 17:34:15 by migusant         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+The project involves creating and configuring a virtual machine following strict rules. 
+The evaluated person will need to assist you during the defense. 
+Make sure all the following points are respected.
+
+General Guidelines:
+
+  During the defense, as soon as you need help to verify a point, the evaluated person must assist you:
+    1. As a precaution, you may duplicate the original virtual machine to keep a copy.
+    2. Check that the "signature.txt" file is present at the root of the cloned repository.
+    3. Ensure that the signature contained in "signature.txt" matches that of the ".vdi" file of the virtual machine being evaluated.
+    A simple diff should allow you to compare the two signatures. If needed, ask the evaluated person where their ".vdi" file is located.
+      Path: 
+        /home/migusant/sgoinfre/Born2beroot/Born2beroot.vdi
+      Check:
+        Manual Commands:
+          sha1sum /home/migusant/sgoinfre/Born2beroot/Born2beroot.vdi
+          cat signature.txt
+        Diff Command: 
+          diff <(sha1sum /home/migusant/sgoinfre/Born2beroot/Born2beroot.vdi | cut -d' ' -f1) <(cat signature.txt)
+        Diff Output:
+          If the signatures match, the diff command will produce no output.
+          If the signatures do not match, diff will show the lines that differ (i.e., the two different hashes).
+    4. Launch the virtual machine to be evaluated.
+  If something does not work as expected or the two signatures differ, the evaluation stops here.
+
+Project Overview:
+
+  The evaluated person must simply explain:
+    1. The basic functioning of their virtual machine.
+      "My virtual machine runs using VirtualBox on my host computer. The hypervisor creates a simulated hardware environment by allocating 
+      resources like CPU cores, RAM, and disk space from the host machine. Inside this isolated environment, I have installed and configured 
+      the Debian operating system. It functions like a separate computer, but it's entirely contained within the hypervisor software on my host."
+    2. Their choice of operating system.
+      "I chose Debian primarily because it's the required operating system for the Born2beroot project at 42. Additionally, Debian is well-regarded 
+      for its stability, extensive software repositories managed by apt, strong security focus, and its widespread use in server environments. This 
+      makes it an excellent platform for learning Linux system administration fundamentals."
+    3. The basic differences between Rocky and Debian.
+      "The main differences lie in their origins and package management. Rocky Linux is derived from Red Hat Enterprise Linux (RHEL) source code, 
+      aiming for binary compatibility with RHEL. It uses the RPM package format and the dnf package manager. Debian is an independent, 
+      community-driven project and the base for many other distributions like Ubuntu. It uses the DEB package format and the apt family of package 
+      managers (apt, apt-get, aptitude). They also have different philosophies regarding software inclusion and release cycles."
+    4. The benefits of virtual machines.
+      "Virtual machines offer several key benefits:
+        Isolation: They provide a sandboxed environment, separating the guest OS from the host. This is great for testing software or configurations 
+        without risking the host system.
+        Resource Consolidation: Multiple VMs can run on a single physical machine, making efficient use of hardware resources.
+        Snapshots: You can save the state of a VM at any point (a snapshot) and easily revert to it if something goes wrong, which is invaluable for 
+        experimentation.
+        Testing & Development: VMs allow easy creation of specific, reproducible environments for development or testing software across different OS 
+        versions or configurations.
+        Portability: VM images can often be moved and run on different physical computers."
+    5. If the chosen operating system is Rocky, they must explain what SELinux and DNF are.
+      "SELinux, which stands for Security-Enhanced Linux, is a Linux kernel security module that provides a mechanism for supporting Mandatory Access 
+      Control (MAC) security policies. Unlike standard Linux Discretionary Access Control (DAC) which relies on user/group ownership and permissions 
+      (like rwx), SELinux enforces rules based on policies that define what actions specific processes (subjects) can perform on specific system resources 
+      (objects) like files, devices, or network ports. It works by assigning security labels to both subjects and objects. Even if standard file permissions 
+      would allow an action, SELinux can block it if the policy doesn't explicitly permit it. This significantly enhances security by limiting the potential 
+      damage from compromised processes, preventing privilege escalation, and enforcing fine-grained access control."
+      "DNF (Dandified YUM) is the default high-level package manager for Rocky Linux and other modern RPM-based distributions like Fedora and RHEL 8+. It's 
+      the successor to yum. DNF is used to install, update, remove, and otherwise manage software packages (in .rpm format) on the system. It automatically 
+      handles dependencies, meaning when you install a package, DNF ensures all other required packages are also installed. Compared to yum, DNF offers 
+      improved performance, better dependency resolution using the libsolv library, and a more predictable command-line interface."
+    6. If the chosen operating system is Debian, they must explain the difference between aptitude and apt, and what APPArmor is. 
+      "Both apt and aptitude are high-level package management tools for Debian systems, acting as front-ends to the lower-level dpkg tool.
+      apt is the more modern and commonly used command-line interface. It provides essential commands like install, remove, update, upgrade in a 
+      straightforward manner.
+      aptitude offers both a command-line interface and an interactive text-based UI. Its main advantage is often considered its more sophisticated 
+      dependency resolver. 
+      When conflicts arise, aptitude can sometimes suggest multiple resolution strategies, whereas apt might be more direct. aptitude also keeps a slightly 
+      more detailed log of which packages were installed automatically versus explicitly."
+    7. During the defense, a script must display information every 10 minutes. Its operation will be checked in detail later.
+      "I have created a monitoring script (monitoring.sh) located at /etc/cron.d/monitoring.sh. I have configured a cron job that executes this script every 
+      10 minutes. The script's output, containing various system metrics, is broadcast to all logged-in user terminals using wall. We can check the script's 
+      content and the crontab entry later in the evaluation."
+  If the explanations are not clear, the evaluation stops here.
+
+Simple Configuration
+
+  As soon as you need help to verify a point, the evaluated person must be able to assist you:
+    1. Verify that the machine does not have a graphical environment at startup. A password will be requested before any connection attempt on this machine. 
+    Log in with a non-root user. Verify that the chosen password respects the rules imposed in the subject.
+      Check User Password: (M1gusant42us3r)
+        Your password must be at least 10 characters long. It must contain an uppercase letter, a lowercase letter, and a number. Also, it must not contain 
+        more than 3 consecutive identical characters. The password must not include the name of the user.
+      Check User Password Extra Policies Command:
+        Your password has to expire every 30 days. The minimum number of days allowed before the modification of a password will be set to 2. The user has 
+        to receive a warning message 7 days before their password expires.
+          sudo chage -l migusant
+      Check Log in with Non-Root User Command:
+        whoami
+      Expected Output:
+        migusant
+      Check Graphical Environment Command:
+        systemctl get-default
+      Expected Output:
+        If the output is graphical.target, it means your system is configured to boot into a GUI login manager and desktop. It is wrong.
+        If the output is multi-user.target, it means the system boots into a command-line environment. It is right. 
+    2. Then, with the help of the evaluator, make sure that:
+      2.1 The chosen operating system is indeed Debian or Rocky.
+        OS Command:
+          cat /etc/os-release
+        Expected Output:
+          The output should contain lines clearly identifying the OS as "Debian".
+      2.2 The UFW service is properly launched.
+        UFW Status Command:
+          systemctl status ufw
+        Expected Output:
+          Active: active (running)
+      2.3 The SSH service is properly launched. 
+        SSH Service Command:
+          systemctl status sshd
+        Expected Output:
+          Active: active (running)
+    If something does not work as expected or is not clearly explained, the evaluation stops here.
+      
+      
