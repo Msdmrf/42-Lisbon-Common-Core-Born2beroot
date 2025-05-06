@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 15:47:11 by migusant          #+#    #+#              #
-#    Updated: 2025/05/06 18:31:07 by migusant         ###   ########.fr        #
+#    Updated: 2025/05/06 19:56:47 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -321,11 +321,33 @@ SUDO
             log in to user (check that now there is a message saying "You have new mail.")
             mail (check that there is new "*** SECURITY information for migusant42 ***" and the location of it)
             cat /var/mail/migusant (check what happened: "migusant : 1 incorrect password attempt")
-      Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-      Defaults        requiretty
-      Defaults        badpass_message="WRONG PASSWORD"
-      Defaults        logfile="/var/log/sudo/sudo.log"
-      Defaults        log_input
-      Defaults        log_output
+      Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" (sets the PATH environment variable for sudo commands to a secure value)
+        Commands:
+          su - (change to root and insert password)
+          echo $PATH
+        Expected Output:
+          /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      Defaults        requiretty (requires sudo to be run from a terminal (TTY). This prevents scripts from running sudo commands without user interaction)
+        Try running a sudo command from a non-interactive context, such as a script:
+          Commands:
+            ssh migusant@localhost -p 2222 "sudo ls" (this will try to run sudo without allocating a TTY (Teletypewriter))
+          Expected Output:
+            sudo: sorry, you must have a tty to run sudo
+      Defaults        badpass_message="WRONG PASSWORD" (changes the message displayed when a user enters an incorrect password)
+        Commands:
+          sudo ls (while being the user, but when prompted to put password, fail once, then press CTRL+C)
+        Expected Output:
+          WRONG PASSWORD
+      Defaults        logfile="/var/log/sudo/sudo.log" (specifies a log file where all sudo commands are recorded)
+        Commands:
+          sudo ls /root (while being the user, to check the content of the root directory)
+          sudo tail -n 5 /var/log/sudo/sudo.log (while being the user, to check the last 5 lines of the sudo.log files)
+        Expected Output: (find this two lines in the output)
+          COMMAND=/usr/bin/ls /root
+          COMMAND=/usr/bin/tail -n 5 /var/log/sudo/sudo.log
+      Defaults        log_input (log the input of all sudo commands)
+      Defaults        log_output (log the output of all sudo commands)
+        Commands:
+          
       Defaults        iolog_dir=/var/log/sudo
       Defaults        passwd_tries=3
