@@ -6,13 +6,17 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 15:47:11 by migusant          #+#    #+#              #
-#    Updated: 2025/05/05 19:46:03 by migusant         ###   ########.fr        #
+#    Updated: 2025/05/06 18:31:07 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+
 
 The project involves creating and configuring a virtual machine following strict rules. 
 The evaluated person will need to assist you during the defense. 
 Make sure all the following points are respected.
+
+
 
 General Guidelines:
 
@@ -30,6 +34,8 @@ General Guidelines:
         If the signatures do not match, diff will show the lines that differ (i.e., the two different hashes).
     4. Launch the cloned virtual machine to be evaluated.
   If something does not work as expected or the two signatures differ, the evaluation stops here.
+
+
 
 Project Overview:
 
@@ -82,6 +88,8 @@ Project Overview:
       content and the crontab entry later in the evaluation."
   If the explanations are not clear, the evaluation stops here.
 
+
+
 Simple Configuration
 
   As soon as you need help to verify a point, the evaluated person must be able to assist you:
@@ -128,6 +136,8 @@ Simple Configuration
           Check the port to verify it's listening on the port specified in the subject (e.g., 4242) and not the default port 22.
   If something does not work as expected or is not clearly explained, the evaluation stops here.
 
+
+
 User
 
   As soon as you need help to verify a point, the evaluated person must be able to assist you:
@@ -141,7 +151,7 @@ User
       2.1 First, create a new user. Assign them a password of your choice, respecting the subject's rules.
         Create user Command:
           sudo adduser testuser
-        Create password Command:
+        Create password Command (if not prompted automatically):
           sudo passwd testuser
             If the policy is correctly implemented (e.g., via PAM modules like pam_pwquality), the system should:
               Reject passwords that don't have at lease 10 characters.
@@ -160,4 +170,162 @@ User
           (at least one special character), and potentially difok=7 (must differ from old password by 7 characters) and reject_username (prevent using username in password)."
   If there is any problem, the evaluation stops here.
     3. Now that you have a new user, ask the evaluated person to create a group named "evaluating" in front of you and assign it to this user.
-      
+      Create group Command:
+        sudo addgroup evaluating
+      Add user to group Command:
+        sudo usermod -aG evaluating testuser
+      Check if Belongs Command:
+        id testuser or groups testuser
+      Expected Output:
+        Look for testuser's UID/GID information and verify that evaluating is listed in the groups= section of the output.
+    4. To finish, ask the evaluated person to explain the purpose of this password policy, as well as the advantages and disadvantages of its implementation. Of course, 
+    answering that it is because the subject requires it does not count.
+      "The primary purpose of this password policy isn't just because the subject requires it, but to enhance the overall security of the system. It aims to make user accounts 
+      significantly harder to compromise through common attacks like brute-forcing (guessing passwords) or using credentials found in breaches (password reuse).
+      Some advantages are:
+        Increased Security: Complex passwords are much harder to guess or crack. Regular expiration limits the time window an attacker has if they do obtain a password.
+        Reduced Risk: Prevents users from using weak, easily guessable passwords or reusing the same password across multiple services.
+        Compliance: Helps meet security best practices and potential compliance requirements.
+        Accountability: Enforces a minimum standard of security hygiene across all users.
+      Some disadvantages are:
+        User Inconvenience: Remembering complex passwords and changing them frequently can be frustrating for users.
+        Insecure Practices: May lead users to write passwords down (often insecurely) or use predictable patterns to meet complexity rules.
+        Potential Lockouts/Helpdesk Load: Users might forget passwords more often, potentially increasing support requests for resets.
+        Complexity != Strength: A policy can enforce complexity, but users might still choose fundamentally weak passwords that meet the letter but not the spirit of the rules 
+        (e.g., Password123!). It's a balance betweenChange this hostname by replacing the login with yours, then restart the machine. If upon restarting, the hostname has not been updated, the evaluation stops here. technical enforcement and user education."
+  If something does not work as expected or is not clearly explained, the evaluation stops here.
+
+
+
+Hostname and Partitions
+
+  As soon as you need help to verify a point, the evaluated person must be able to assist you:
+    1. Verify that the hostname of the machine is formatted as follows: login42 (login of the evaluated person).
+      Check Command:
+        hostname
+      Expected OUtput:
+        migusant42
+    2. Change this hostname by replacing the login with yours, then restart the machine. If upon restarting, the hostname has not been updated, the evaluation stops here.
+      Wrong change host Command: (This will only change the hostname for the current session. However, this is not persistent across reboots. To make this change persistent see next step.)
+        hostname testevaluator
+      Check Command:
+        hostname
+      Right change host Process:
+         nano /etc/hostname (change the contents of the file to match the new hostname, for example, to testevaluator)
+         nano /etc/hosts    (additionally, update the /etc/hosts file to reflect the new hostname: replace any occurrences of the old hostname with the new one, for example, 127.0.1.1 testevaluator)
+         sudo reboot        (restart the machine for the changes to take place)
+       Check Command:
+        hostname
+     3. You can now restore the original hostname of the machine.
+       Right change host Process:
+        nano /etc/hostname (change the contents of the file to match the old hostname, migusant42)
+        nano /etc/hosts    (additionally, update the /etc/hosts file to reflect the new hostname: replace any occurrences of the old hostname with the new one, 127.0.1.1 migusant42)
+        sudo reboot        (restart the machine for the changes to take place)
+       Check Command:
+        hostname
+     4. The evaluator will ask you to display the partitions of your virtual machine. To do this, use the following command:
+       Check partitions Command:
+        lsblk
+      Expected Outputs:
+        You must have at least 2 encrypted partitions using LVM (check the number of lines below "sdaX_crypt"). Check the subject for an example of the expected partitioning.
+        If the evaluatee did the BONUS part, check the example of the expected partitioning from the Bonus Part.
+    5. Explanation of LVM:
+      "LVM stands for Logical Volume Management. It’s a system for managing disk storage that abstracts the physical layout of the disks. Instead of working directly with physical 
+      partitions, LVM introduces an extra layer. Here’s how it works:
+      Physical Volumes (PVs): These are the actual physical hard drives or partitions (e.g., /dev/sda2).
+      Volume Groups (VGs): These are created by combining one or more physical volumes into a single pool of storage.
+      Logical Volumes (LVs): These are created from the volume group and act like virtual partitions. You can format and mount them just like normal partitions.
+      For example, you might create a volume group named vg-root and then create logical volumes like lv-root (for /) and lv-swap (for swap space).
+      Benefits of LVM:
+      Flexibility: You can resize logical volumes dynamically without needing to unmount them (e.g., extend your /home volume if it’s running out of space).
+      Snapshots: LVM allows you to create snapshots of logical volumes, which are useful for backups or testing.
+      Disk Management: You can add more physical volumes (e.g., new hard drives) to an existing volume group, effectively increasing storage without downtime.
+      Simplified Partitioning: LVM allows you to create partitions on-the-fly without worrying about the fixed sizes of traditional partitions."
+  If something does not work as expected or is not clearly explained, the evaluation stops here.
+
+
+
+SUDO
+
+  As soon as you need help to verify a point, the evaluated person must be able to assist you:
+    1. Verify that the "sudo" program is indeed installed on the virtual machine.
+      Check Sudo Command:
+        sudo --version
+      Expected Output:
+        Sudo version 1.9.x
+    2. Assign your new user (for example, the testuser) to the sudo group:
+      Add to Group Command:
+        sudo usermod -aG sudo testuser
+      Check if Belongs Command:
+        id testuser or groups testuser
+      Expected Output:
+        Look for testuser's UID/GID information and verify that sudo is listed in the groups= section of the output. 
+    3. Explain the Purpose and Operation of sudo
+      "sudo stands for 'superuser do' and allows a user to execute commands with elevated privileges (as the root user). It’s a safer alternative to directly logging 
+      in as root because it restricts access and logs all commands executed. By requiring explicit permission and authentication, it minimizes the risk of accidental 
+      system-wide changes or malicious actions.
+      For example:
+      As a user, to update and upgrade the system, you need to use sudo: sudo apt update && sudo apt upgrade.
+      As a user, to edit a system file, you need to use sudo: sudo nano /etc/hostname.
+      As a user, restart a system service, you need to use sudo: sudo systemctl restart ssh."
+    4. Demonstrate the implementation of the rules imposed by the subject, that are present in the "sudoers" file:
+      Check sudoers file command:
+        sudo visudo
+      Defaults        env_reset (clears the environment variables except for a safe default set when running commands with sudo)
+        Command:
+          Run env, and then sudo env
+        Expected Output:
+          Observe that most environment variables (like PATH) were reset to a secure default when running sudo env
+      Defaults        mail_badpass (sends an email to the system administrator if a user enters an incorrect password for sudo)
+        This service isn't installed by default, so you should install it, or defend why don't you use it.
+        TO INSTALL IT, CHECK THE mail_logging.sh SCRIPT!
+          Commands for mailutils:
+            dpkg -l | grep mailutils (if it doesn't return anything, we need to install mailutils)
+            sudo apt update
+            sudo apt install mailutils -y
+          Commands for postfix:
+            The mailutils package usually installs Postfix as a dependency, but you'll want to ensure that it is installed and running.
+            dpkg -l | grep postfix (if it doesn't return anything, we need to install postfix)
+            sudo apt update
+            sudo apt install postfix -y
+              Select "<OK>"
+              Select "Local Only"
+              Input your "System mail name: migusant42" and select <OK>
+            sudo systemctl start postfix
+            sudo systemctl enable postfix
+            sudo systemctl status postfix (and check if it is active and running)
+            sudo systemctl restart postfix  (to apply new configurations)
+          Commands for rsyslog:
+            dpkg -l | grep rsyslog (if it doesn't return anything, we need to install rsyslog)
+            sudo apt update
+            sudo apt install rsyslog -y
+            sudo systemctl start rsyslog
+            sudo systemctl enable rsyslog
+            sudo systemctl status rsyslog (and check if it is active and running)
+            sudo systemctl restart rsyslog (to apply new configurations)
+            sudo nano /etc/rsyslog.d/mail.conf (open or create the configuration file for mail logs)
+            mail.*                        -/var/log/mail.log (add the following line to ensure mail logs are written to /var/log/mail.log)
+            sudo systemctl restart rsyslog (save the file and restart the rsyslog service)
+            sudo cat /var/log/mail.log (check if the /var/log/mail.log file now exists and contains entries)
+            echo "Test mail body" | mail -s "Test Email" root (send a test email)
+            sudo cat /var/log/mail.log (check again)
+            sudo chmod 640 /var/log/mail.log (verify that /var/log/mail.log has correct ownership)
+            sudo chown syslog:adm /var/log/mail.log (verify that /var/log/mail.log has correct permissions)
+        Now that is installed, we can test the service.
+          Commands for testing:
+            ssh migusant@localhost -p 2222 (connect to server via ssh)
+            log in to user (check that there is a message saying "You have no new mail.")
+            sudo ls (while being the user, but when prompted to put password, fail once, then press CTRL+C)
+            logout
+            ssh migusant@localhost -p 2222 (connect again to server via ssh)
+            log in to user (check that now there is a message saying "You have new mail.")
+            mail (check that there is new "*** SECURITY information for migusant42 ***" and the location of it)
+            cat /var/mail/migusant (check what happened: "migusant : 1 incorrect password attempt")
+      Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      Defaults        requiretty
+      Defaults        badpass_message="WRONG PASSWORD"
+      Defaults        logfile="/var/log/sudo/sudo.log"
+      Defaults        log_input
+      Defaults        log_output
+      Defaults        iolog_dir=/var/log/sudo
+      Defaults        passwd_tries=3
