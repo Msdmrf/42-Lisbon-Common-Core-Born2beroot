@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 15:47:11 by migusant          #+#    #+#              #
-#    Updated: 2025/05/07 15:57:03 by migusant         ###   ########.fr        #
+#    Updated: 2025/05/07 18:53:35 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -452,4 +452,57 @@ SSH
 
 Script Monitoring
   As soon as you need help to verify a point, the evaluated person must be able to assist you:
-    1. 
+    1. Display where the monitoring script is located and explain why (if you put it in /etc/cron.d you have to know why is it there and if it is the correct place for it to be)
+      "I placed my monitoring.sh script in the /root directory because I wanted to ensure that only the root user could access or modify it. By default, the /root directory is 
+      restricted to root, so no other users can even view the script. This adds an extra layer of security, preventing unauthorized changes, especially if someone has limited sudo 
+      privileges. Instead of following the guide and placing the script itself in /etc/cron.d, I created a simple monitoring file in that directory. The file contains only the cron 
+      job entry: */10 * * * * root bash /root/monitoring.sh | wall 
+      This setup allows the script to run every 10 minutes as the root user while keeping the actual script secure in /root. My reasoning is that if the script were in a more accessible 
+      location, like /etc/cron.d, someone with sudo access could potentially modify it. By keeping the script in /root, I ensure that only root has control over it. This separation between 
+      the script's location and its cron configuration also keeps things modular and easy to manage."
+    2. Display the code contained in the monitoring script and explain it
+    3. Explain what cron is:
+      "Cron is a time-based job scheduler in Unix-like operating systems. It allows users to schedule scripts or commands to execute automatically at specified intervals (e.g., every 10 
+      minutes, every day, etc.). Jobs are defined in a file called a crontab (short for "cron table"). Each job in the crontab file specifies: minute, hour, day of the month, month, day 
+      of the week, the command or script to execute."
+    4. Explain how did you set up their script to execute every 10 minutes from server launch:
+      "I created a simple monitoring file in the directory /etc/cron.d because the files in that directory are used for system-wide cron jobs. This is one of the possible locations to save 
+      your cron jobs. The monitoring file contains only the cron job entry: 
+      */10 * * * * root bash /root/monitoring.sh | wall
+      This tells the cron daemon to: run the monitoring.sh script every 10 minutes, execute the script as the root user, use the wall command to broadcast the output to all logged-in users."
+    5. Change the cron job to run every minute:
+      Command:
+        nano /etc/cron.d/monitoring
+      Change: "*/10 * * * * root bash /root/monitoring.sh | wall" to "* * * * * root bash /root/monitoring.sh | wall"
+      Save:   CTRL+O
+      Exit:   CTRL+X
+      Wait 1 minute to check that the script runs every minute now.
+    6. Modify your script to include a timestamp to show when it runs (this will be the test by adding dynamic values to the script's output)
+      Commands:
+        # Current Timestamp
+        current_time=$(date '+%Y-%m-%d %H:%M:%S')
+        printf "#Current Time: %s\n\n" "$current_time"
+      Expected Output:
+        Check for the line "#Current Time: YEAR-MONTH-DAY HOUR:MINUTE:SECOND"
+    7. Modify the cronjob script to disable running the script at reboot (without changing the script place, its permissions, and its content):
+      Commands:
+        su -
+        ls -l /root/monitoring.sh (to ensure that after the last reboot, the permissions of the script remain the same)
+        nano /etc/cron.d/monitoring
+        #@reboot root sleep 15 && bash /root/monitoring.sh | wall (comment this option to disable running the script when booting the machine)
+        reboot (to ensure that the script no longer runs at server launch)
+        ls -l /root/monitoring.sh (to ensure that after the last reboot, the permissions of the script remained the same)
+  If any of the above points are not correct, the evaluation stops here.
+
+
+
+Bonus
+  Bonuses will only be examined if the mandatory part is excellent. This means that the mandatory part must have been completed from start to finish, with perfect error management even in cases of 
+  unexpected use. If all mandatory points have not been awarded during this defense, no bonus points will be counted.
+    1. The implementation of partitions will be worth 2 points
+      
+    2. The setup of WordPress, with only the services listed in the subject, will be worth 2 points
+
+    3. The free-choice service will be worth 1 point. Verify and test the proper functioning and implementation of each additional service. For the free-choice bonus service, the evaluated person 
+    must provide a simple explanation of the service and explain the reasons for their choice. Be aware: NGINX and Apache2 are forbidden.
+      
