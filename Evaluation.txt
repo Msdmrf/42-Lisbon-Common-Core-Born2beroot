@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 15:47:11 by migusant          #+#    #+#              #
-#    Updated: 2025/05/07 13:01:16 by migusant         ###   ########.fr        #
+#    Updated: 2025/05/07 15:57:03 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,7 +130,7 @@ Simple Configuration
           Active: active (running)
       2.3 The SSH service is properly launched. 
         SSH Service Command:
-          systemctl status sshd
+          systemctl status ssh
         Expected Output:
           Active: active (running)
           Check the port to verify it's listening on the port specified in the subject (e.g., 4242) and not the default port 22.
@@ -377,4 +377,79 @@ SUDO
 
 UFW / Firewalld
   As soon as you need help to verify a point, the evaluated person must be able to assist you:
-    1.
+    1. Verify that the "UFW" (or "Firewalld" for rocky) program is indeed installed on the virtual machine and that it is functioning correctly:
+      UFW Status Command:
+        systemctl status ufw (displays whether the UFW service is active (running), inactive (stopped), or failed)
+      Expected Output:
+         Active: active (running)
+    2. The evaluated person must give you a basic explanation of what UFW (or "Firewalld") is and why it's important to use it:
+      "UFW (Uncomplicated Firewall) is a user-friendly frontend for managing iptables (the underlying Linux firewall). It simplifies the process 
+      of managing firewall rules and is commonly used on Ubuntu/Debian-based systems. Both UFW and Firewalld help secure servers by controlling 
+      inbound and outbound traffic. They allow only specific, trusted connections (e.g., SSH, HTTP/HTTPS) while blocking potentially malicious or 
+      unnecessary traffic.A properly configured firewall reduces the attack surface of a server and prevents unauthorized access."
+    3. List the active rules in UFW (or "Firewalld"). There should be a rule for port 4242:
+      Command:
+        sudo ufw status (it determines if UFW is active or inactive and lists the currently configured rules if it's installed.)
+      Expected Output:
+        Check if there is a rule with the following syntax: 
+        "4242                       ALLOW       Anywhere"
+    4. Add a new rule to open port 8080 and verify that it has been added by listing the active rules:
+      Commands:
+        sudo ufw allow 8080
+        sudo ufw status
+      Expected Output:
+        Check if there is are two new rules with the following syntax:
+        "8080                       ALLOW       Anywhere"
+        "8080 (v6)                  ALLOW       Anywhere (v6)"
+    5. Delete this new rule:
+      Commands:
+        sudo ufw status numbered (used to check the index of the first 8080 rule, let's say that it's number 3)
+        sudo ufw delete 3 (say 'y' when prompted to delete the rule with index 3)
+        sudo ufw status numbered (used to check the index of the first 8080 rule, let's say that it's number 5)
+        sudo ufw delete 5 (say 'y' when prompted to delete the rule with index 5)
+      Expected output
+        sudo ufw status (this should return the same result as when we used this command in section 3. of "UFW / Firewalld")
+  If something does not work as expected or is not clearly explained, the evaluation stops here.
+
+
+
+SSH
+  As soon as you need help to verify a point, the evaluated person must be able to assist you:
+    1. Verify that the SSH service is indeed installed on the virtual machine and that it is functioning correctly:
+      SSH Status Command:
+        ssh -V (the SSH client is a standalone executable, so running it directly with -V confirms that the client is installed and provides its version)
+        systemctl status ssh (displays whether the SSH service is active (running), inactive (stopped), or failed)
+      Expected Output:
+         Active: active (running)
+    2. What SSH is and why it's important to use it:
+      "SSH (Secure Shell) is a protocol that allows secure remote access to a server or computer over an encrypted connection. It enables users to execute 
+      commands and manage systems remotely while ensuring that data is protected from eavesdropping and tampering. It's important to use because it provides
+      a secure way to manage servers, especially for administrators who need to remotely troubleshoot, configure, or monitor systems. It uses encryption
+      to protect sensitive information, such as usernames, passwords, and commands."
+    3. Verify that the SSH service uses only port 4242:
+      Command:
+        sudo nano /etc/ssh/sshd_config (sshd_config file should be the one used, since it refers to the "Server-side configuration", and ssh_config to the "Client-side")
+      Expected Output:
+        Only "Port 4242" should be listed or uncommented.
+      Command:
+        sudo ss -tuln | grep 4242 (to confirm that SSH is now listening on port 4242)
+      Expected Output:
+        "tcp   LISTEN 0      128          0.0.0.0:4242      0.0.0.0:*" (related to IPv4 connection)      
+        "tcp   LISTEN 0      128             [::]:4242         [::]:*" (related to IPv6 connection)
+    4. Use SSH to connect with the new user created:
+      Command:
+        ssh testuser@localhost -p 2222 (and insert the defined password for testuser)
+      Expected Result:
+        Successfull login
+    5. Ensure that SSH cannot be used with the "root" user as indicated in the subject:
+      Command:
+        ssh root@localhost -p 2222 (and insert the defined password for root)
+      Expected Result:
+        "Permission denied, please try again." (beacuse there is a line in /etc/ssh/sshd_config that says "PermitRootLogin no")
+  If something does not work as expected or is not clearly explained, the evaluation stops here.
+
+
+
+Script Monitoring
+  As soon as you need help to verify a point, the evaluated person must be able to assist you:
+    1. 
