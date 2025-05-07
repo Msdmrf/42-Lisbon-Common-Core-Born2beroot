@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 15:47:11 by migusant          #+#    #+#              #
-#    Updated: 2025/05/07 18:53:35 by migusant         ###   ########.fr        #
+#    Updated: 2025/05/07 20:15:57 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -500,9 +500,34 @@ Bonus
   Bonuses will only be examined if the mandatory part is excellent. This means that the mandatory part must have been completed from start to finish, with perfect error management even in cases of 
   unexpected use. If all mandatory points have not been awarded during this defense, no bonus points will be counted.
     1. The implementation of partitions will be worth 2 points
-      
-    2. The setup of WordPress, with only the services listed in the subject, will be worth 2 points
-
+      Disk Partitions
+        /boot (sda1): Contains the bootloader (e.g., GRUB) and kernel files required to boot the system. It is a separate partition to ensure the bootloader can access the files, even if the rest of the disk is encrypted (which is the case here). Typically mounted as /boot.
+        sda2: This is most likely a placeholder partition created automatically by the partitioning tool. It is often used for special purposes, such as aligning partitions or as a reserved partition.
+        sda5: This is the main partition that contains a LUKS-encrypted volume (sda5_crypt). The encrypted partition ensures all data stored on the disk is secure.
+        sda5_crypt: This is the encrypted partition that protects the data stored within it. Inside this partition, Logical Volume Management (LVM) is used to create flexible and manageable sub-partitions (logical volumes).
+      Logical Volumes Inside sda5_crypt
+        / (Root) (migusant42--vg-root): This is the root partition, which contains the operating system files, binaries, libraries, and essential system data. It is the core of the Linux system.
+        /var     (migusant42--vg-var): Contains variable files such as logs, cached data, and spool files (e.g., print jobs or mail queues). Isolated to prevent large log files from filling up the entire root partition.
+        [SWAP]   (migusant42--vg-swap_1): Swap space is used as virtual memory when the system's RAM is fully utilized. It allows the system to temporarily move inactive data from RAM to disk, freeing up memory for active processes.
+        /tmp     (migusant42--vg-tmp): Temporary files are stored here, such as files generated during program execution or downloads-in-progress. Isolated to ensure temporary data doesn’t affect other parts of the system.
+        /home    (migusant42--vg-home): Stores user-specific files like documents, downloads, and configuration files. Keeping /home separate makes it easier to back up and manage user data.
+        /srv     (migusant42--vg-srv): Used to store data for server-specific applications (e.g., web server files, FTP data). This separation ensures server data is organized and does not interfere with other parts of the system.
+        /var/log (migusant42--vg-var--log): Dedicated to storing system logs (e.g., system events, application logs). Isolating log files prevents them from filling up the /var partition, which would otherwise affect services.
+      Other Devices
+        sr0: used for external media like installation disks.
+      "This partitioning scheme is good in terms of:
+      Security: The use of LUKS encryption (sda5_crypt) ensures that all data is protected, even if the disk is physically stolen.
+      Organization: Separating partitions like /var, /tmp, /home, and /srv ensures that different types of data are isolated. For example: /var prevents logs from filling up / and /home keeps user data separate from system files.
+      Performance: Using LVM allows for dynamic resizing and efficient management of storage space.
+      Reliability: Isolating critical directories (like /var/log) ensures that a single directory filling up will not crash the entire system."
+    2. The setup of WordPress, with only the services listed in the subject (lighttpd, MariaDB, and PHP), will be worth 2 points
+      *What is lighttpd and how do you use it in this project?*
+      *What is MariaDB and how do you use it in this project?*
+      *What is PHP and how do you use it in this project?*
+      *What is Wordpress and how do you use it in this project?*
     3. The free-choice service will be worth 1 point. Verify and test the proper functioning and implementation of each additional service. For the free-choice bonus service, the evaluated person 
     must provide a simple explanation of the service and explain the reasons for their choice. Be aware: NGINX and Apache2 are forbidden.
-      
+      *What is Docker and how do you use it in this project?*
+      *Why was Docker your choice for the additional service?*
+
+
