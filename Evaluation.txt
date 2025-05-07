@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 15:47:11 by migusant          #+#    #+#              #
-#    Updated: 2025/05/06 19:56:47 by migusant         ###   ########.fr        #
+#    Updated: 2025/05/07 13:01:16 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -260,7 +260,7 @@ SUDO
         id testuser or groups testuser
       Expected Output:
         Look for testuser's UID/GID information and verify that sudo is listed in the groups= section of the output. 
-    3. Explain the Purpose and Operation of sudo
+    3. Explain the Purpose and show an example operation of sudo
       "sudo stands for 'superuser do' and allows a user to execute commands with elevated privileges (as the root user). It’s a safer alternative to directly logging 
       in as root because it restricts access and logs all commands executed. By requiring explicit permission and authentication, it minimizes the risk of accidental 
       system-wide changes or malicious actions.
@@ -347,7 +347,34 @@ SUDO
           COMMAND=/usr/bin/tail -n 5 /var/log/sudo/sudo.log
       Defaults        log_input (log the input of all sudo commands)
       Defaults        log_output (log the output of all sudo commands)
-        Commands:
-          
+        Run a sudo command that has input and output:
+          Command:
+            sudo ls /root
+            Check the the XX in "TSID=XX" and remember it for the next step (each time you run a sudo command, a unique TSID is assigned to that session)
+          Expected Output: 
+            The files and directories contained inside the root directory.
+          Confirmation: (check the logs in /var/log/sudo/ for both input and output logs)
+            su - (change to root to have access to the sudo.log file)            
+            ls /var/log/sudo/00/00/XX (here we will have ttyin (the binary related to stdin_log) and ttyout (the binary related to stdout_log))
+            sudo sudoreplay /var/log/sudo/00/00/XX (this will replay the session, showing both the input (commands/keystrokes) and the output (command results) as they occurred)
       Defaults        iolog_dir=/var/log/sudo
+        Specifies the directory where input/output logs (log_input and log_output) are stored.
+          Command:
+            ls -ld /var/log/sudo (verifies that the directory exists)
+          Expected Output:
+           XXXXXXXXXX X root root XXXX MONTH DAY HOUR:MINUTE /var/log/sudo 
+          Command:
+            cat /var/log/sudo/sudo.log (as we used sudo commands before, check if they were correctly recorded in the sudo.log file)
       Defaults        passwd_tries=3
+        Limits the number of incorrect password attempts for sudo to 3.
+          Command:
+            As user, run: sudo ls (but fail the root password 3 times)
+          Expected Output:
+            sudo: 3 incorrect password attempts
+  If something does not work as expected or is not clearly explained, the evaluation stops here.
+
+
+
+UFW / Firewalld
+  As soon as you need help to verify a point, the evaluated person must be able to assist you:
+    1.
