@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 15:47:11 by migusant          #+#    #+#              #
-#    Updated: 2025/05/07 20:15:57 by migusant         ###   ########.fr        #
+#    Updated: 2025/05/08 20:32:52 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -497,9 +497,9 @@ Script Monitoring
 
 
 Bonus
-  Bonuses will only be examined if the mandatory part is excellent. This means that the mandatory part must have been completed from start to finish, with perfect error management even in cases of 
-  unexpected use. If all mandatory points have not been awarded during this defense, no bonus points will be counted.
-    1. The implementation of partitions will be worth 2 points
+  Bonuses will only be examined if the mandatory part is excellent. This means that the mandatory part must have been completed from start to finish, with perfect error management even 
+  in cases of unexpected use. If all mandatory points have not been awarded during this defense, no bonus points will be counted.
+    1. The implementation of partitions will be worth 2 points:
       Disk Partitions
         /boot (sda1): Contains the bootloader (e.g., GRUB) and kernel files required to boot the system. It is a separate partition to ensure the bootloader can access the files, even if the rest of the disk is encrypted (which is the case here). Typically mounted as /boot.
         sda2: This is most likely a placeholder partition created automatically by the partitioning tool. It is often used for special purposes, such as aligning partitions or as a reserved partition.
@@ -520,14 +520,228 @@ Bonus
       Organization: Separating partitions like /var, /tmp, /home, and /srv ensures that different types of data are isolated. For example: /var prevents logs from filling up / and /home keeps user data separate from system files.
       Performance: Using LVM allows for dynamic resizing and efficient management of storage space.
       Reliability: Isolating critical directories (like /var/log) ensures that a single directory filling up will not crash the entire system."
-    2. The setup of WordPress, with only the services listed in the subject (lighttpd, MariaDB, and PHP), will be worth 2 points
-      *What is lighttpd and how do you use it in this project?*
-      *What is MariaDB and how do you use it in this project?*
-      *What is PHP and how do you use it in this project?*
-      *What is Wordpress and how do you use it in this project?*
-    3. The free-choice service will be worth 1 point. Verify and test the proper functioning and implementation of each additional service. For the free-choice bonus service, the evaluated person 
+    2. The setup of WordPress, with only the services listed in the subject (lighttpd, MariaDB, and PHP), will be worth 2 points:
+      Lighttpd
+        What is lighttpd?
+          "Lighttpd (pronounced "lighty") is a lightweight, high-performance web server designed for speed, security, and minimal resource usage. It is particularly suitable for serving 
+          static and dynamic web content on resource-constrained environments."
+        How is it used in this project?
+          "In this project, lighttpd is used as the web server to host the WordPress website. It serves the WordPress content to users; processes PHP requests using the FastCGI module 
+          (mod_fastcgi), which communicates with PHP-FPM to handle dynamic requests; is configured to use /var/www/html/wordpress as the document root, allowing WordPress files to be 
+          served to clients; enforces security configurations, such as disabling directory listing and restricting access to sensitive files (like wp-config.php)."
+      MariaDB
+        What is MariaDB?
+          "MariaDB is a popular open-source relational database management system (RDBMS) that is a fork of MySQL. It is widely used for storing, retrieving, and managing structured data 
+          in databases. MariaDB is known for its high performance, scalability, and compatibility with MySQL."
+        How is it used in this project?
+          "In this project, MariaDB is used as the database backend for WordPress. It stores all WordPress data, including posts, pages, user accounts, comments, and settings; hosts a 
+          dedicated database named wordpress, created specifically for this project; uses a restricted database user (wp_user) with a strong password to access only the WordPress database; 
+          ensures data security by running mysql_secure_installation to remove unnecessary features like test databases and enabling a strong root password."
+      PHP
+        What is PHP?
+          "PHP (Hypertext Preprocessor) is a server-side scripting language designed for web development. It is particularly well-suited for embedding within HTML and is widely used to 
+          create dynamic web applications."
+        How is it used in this project?
+          "In this project, PHP serves as the engine for processing WordPress’s dynamic content. It enables WordPress to interact with the MariaDB database, retrieve content, and render 
+          pages dynamically; runs as a FastCGI application via PHP-FPM, which communicates with lighttpd to handle PHP requests; includes essential PHP modules such as php-mysql (for 
+          database connectivity), php-curl, php-gd, and others to ensure full compatibility with WordPress."
+      WordPress
+        What is WordPress?
+          "WordPress is a free and open-source content management system (CMS) used to create and manage websites. It is highly customizable, offering themes, plugins, and a user-friendly 
+          interface for building websites without extensive coding."
+        How is it used in this project?
+          "In this project, WordPress is the core platform for the website. It provides an interface for creating and managing web content (e.g., posts, pages, media); utilizes the MariaDB 
+          database for storing content and configuration data; runs on the lighttpd web server and uses PHP to dynamically render pages and handle backend logic; is installed in the /var/www/html/wordpress 
+          directory and configured with proper permissions to ensure security and functionality."
+    3. Test the WordPress website and its services (lighttpd, MariaDB, and PHP):
+      Lighttpd
+        3.1.1 Verify if the lighttpd Service is Running
+          Command:
+            sudo systemctl status lighttpd
+          Expected Output:
+            active (running)
+        3.1.2 Test if lighttpd is Serving Static Files
+          Commands:
+            echo "Lighttpd is working!" | sudo tee /var/www/html/test.html
+            curl http://10.0.2.15/test.html (the 10.0.2.15 is my server-ip, yours can be different)
+          Expected Output:
+            Lighttpd is working!
+        3.1.3 Check lighttpd Logs for Errors
+          Command:
+            sudo tail -f /var/log/lighttpd/error.log
+          Expected Output:
+            The logs should not contain recurring errors or warnings.
+        3.1.4 Test PHP Integration with lighttpd
+          Commands:
+            echo "<?php print_r(get_loaded_extensions()); ?>" | sudo tee /var/www/html/info.php
+            curl http://10.0.2.15/info.php
+          Expected Output:
+            Verify that required extensions like mysqli, curl, gd and mbstring are installed.
+        3.1.5 Check lighttpd Configuration
+          Command:
+            sudo lighttpd -t -f /etc/lighttpd/lighttpd.conf
+          Expected Output:
+            Syntax OK
+      MariaDB
+        3.2.1 Verify if the MariaDB Service is Running
+          Command:
+            sudo systemctl status lighttpd
+          Expected Output:
+            active (running)
+        3.2.2 Access MariaDB
+          Command:
+            mariadb
+          Expected Output:
+            Welcome to the MariaDB monitor.
+        3.2.3 Create New Database and User, and Change Privileges:
+          Create new database
+            Commands:
+              SHOW DATABASES; (to check the existing databases)
+              CREATE DATABASE testuser_db
+              SHOW DATABASES; (to check again)
+            Expected Output:
+              The databases table has changed
+          Create new user
+            Commands:
+              SELECT user, host FROM mysql.user; (to check the existing users)
+              CREATE USER testuser@localhost;
+              SELECT user, host FROM mysql.user; (to check again)
+            Expected Output:
+              The user table has changed
+          Grant user control over that database
+            Commands:
+              SHOW GRANTS FOR testuser@localhost; (check user privileges before)
+              GRANT ALL PRIVILEGES ON testuser_db.* TO testuser@localhost;
+              FLUSH PRIVILEGES; (apply changes)
+              SHOW GRANTS FOR testuser@localhost; (check again)
+            Expected Output:
+              The user privileges have changed
+          Exit database editor
+            Command:
+              EXIT;
+        3.2.4 Test Connection to the User Database
+          Command:
+            mysql -u testuser -p testuser_db (leave the password blank when prompted and press ENTER)
+          Expected Output:
+            MariaDB [testuser_db]> (you should be logged into the testuser_db database directly)
+          Command:
+            EXIT;
+        3.2.5 Check the WordPress Database Tables
+          Commands:
+            mysql -u migusant -p migusant_db (leave the password blank when prompted and press ENTER)
+            MariaDB [migusant_db]> SHOW TABLES;
+          Expected Output:
+            +-----------------------+
+            | Tables_in_wordpress   |
+            +-----------------------+
+            | wp_comments          |
+            | wp_links             |
+            | wp_options           |
+            | wp_postmeta          |
+            | wp_posts             |
+            | wp_term_relationships|
+            | wp_term_taxonomy     |
+            | wp_terms             |
+            | wp_usermeta          |
+            | wp_users             |
+            +-----------------------+
+        3.2.6 Test Writing to the Database
+          Commands:
+            USE migusant_db;
+            CREATE TABLE test_table (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100));
+            INSERT INTO test_table (name) VALUES ('MariaDB Test');
+            SELECT * FROM test_table;
+          Expected Output:
+            +----+--------------+
+            | id | name         |
+            +----+--------------+
+            |  1 | MariaDB Test |
+            +----+--------------+
+          Commands:
+            DROP TABLE test_table; (to drop the created test_table)
+            EXIT; (to exit mariadb editor)
+        3.2.7 Check MariaDB Logs for Errors
+          Command:
+            sudo journalctl -u mariadb (this checks for any errors or warnings from MariaDB)
+          Expected Output:
+            No recurring errors or issues should appear in the logs.
+      PHP (less tests are needed since we already tested some while testing the lighttpd service)
+        3.3.1 Verify PHP Installation
+          Commands:
+            php -v (to check the PHP version)
+            php -m (to check the list of all installed PHP modules)
+          Expected Installed Modules:
+            php          -> General PHP functionality (required for all PHP-based services)
+            php-pdo      -> MariaDB (for database abstraction, works with PDO)
+            php-mysql    -> MariaDB (to connect PHP to MariaDB/MySQL databases)
+            php-zip      -> WordPress (used for managing plugins, themes, and backups in ZIP format)
+            php-gd       -> WordPress (image manipulation for themes, plugins, and media uploads)
+            php-mbstring -> WordPress (multibyte string support for non-ASCII text and multi-language websites)
+            php-curl     -> WordPress (for HTTP requests, APIs, and remote connections)
+            php-xml      -> WordPress (used for XML parsing, RSS feeds, and web services)
+            php-pear     -> General PHP functionality (provides reusable PHP components and tools)
+            php-bcmath   -> WordPress (for high-precision math operations, often used in plugins like WooCommerce)
+            php-opcache  -> General PHP functionality (improves PHP performance by caching precompiled scripts)
+            php-json     -> WordPress (for encoding/decoding JSON, essential for APIs and modern web applications)
+            php-cgi      -> General PHP functionality (enables PHP to run as a CGI script, required for FastCGI integration with lighttpd)
+        3.3.2 Check PHP-FPM Logs
+          Command:
+            sudo journalctl -u php* (this checks for any errors or warnings from php service)
+          Expected Output:
+            No recurring errors or issues should appear in the logs.
+      WordPress
+        3.4.1 Check the Homepage
+          URL:
+            http://127.0.0.1:2904/
+          Expected Output:
+            You should see your WordPress homepage.
+        3.4.2 Access the Admin Dashboard
+          URL:
+            http://127.0.0.1:2904/wp-admin (log in with your WordPress admin credentials)
+          Expected Output:
+            If the admin panel loads successfully, your WordPress installation is working as expected.
+        3.4.3 Check WordPress Functionality: Test Creating a Post
+          Actions:
+            Go to Posts > Add New in the admin panel.
+            Create a test post by adding a title and some content.
+            Publish the post and view it on the frontend.
+            Verify that the post appears correctly.
+        3.4.4 Check WordPress Functionality: Test Media Uploads
+          Actions:
+            Go to Media > Add New in the admin panel.
+            Upload an image or file.
+            Check if the file uploads without errors and is accessible from the Media Library.
+        3.4.5 Check WordPress Functionality: Test Plugin Installation
+          Actions:
+            Go to Plugins > Add New in the admin panel.
+            Search for a plugin (e.g., "Hello Dolly") and install it.
+            Activate the plugin and check if it works as expected.
+        3.4.6 Check WordPress Functionality: Test Theme Functionality
+          Actions:
+            Go to Appearance > Themes in the admin panel.
+            Switch to another theme (e.g., Twenty Twenty-Three).
+            Visit the site to ensure the new theme is applied correctly.
+    4. The free-choice service will be worth 1 point. Verify and test the proper functioning and implementation of each additional service. For the free-choice bonus service, the evaluated person 
     must provide a simple explanation of the service and explain the reasons for their choice. Be aware: NGINX and Apache2 are forbidden.
-      *What is Docker and how do you use it in this project?*
-      *Why was Docker your choice for the additional service?*
-
+      Docker
+        What is Docker?
+          "Docker is an open-source platform designed to automate the deployment, scaling, and management of applications using lightweight, portable containers. These containers bundle the application 
+          code, runtime, libraries, and dependencies into an isolated environment, ensuring consistency across different systems."
+        How is it used in this project?
+          "In this project, Docker is used to simplify the deployment and management of the additional service. For example: a Docker container can be set up to run a specific service (e.g., Redis, 
+          Elasticsearch, or a custom application) without worrying about dependency conflicts on the host system; Docker Compose is used to manage multiple containers, making it easy to start, stop, and 
+          configure services with a single command; the additional service is packaged into its own container, ensuring that it runs consistently and independently of the underlying operating system."
+        Why was Docker your choice for the additional service?
+          "I chose Docker because it’s going to be a key tool in future projects. I wanted to use this project as a foundation to familiarize myself with Docker installation, configuration, and management. 
+          While I didn’t use Docker to run a specific container in this project, setting it up has given me a basis for understanding how it works and how we’ll use it in the future.
+          Also, I chose it because after 42 I want to follow cybersecurity, and Docker is highly relevant to cybersecurity for several reasons, two of them being Isolation, and Sandboxing. Isolation because 
+          Docker containers provide strong isolation between applications and their environments. This reduces the risk of vulnerabilities in one service affecting others on the same host. Sandboxing because 
+          Docker containers are often used to run untrusted code in a sandboxed environment. This is useful for analyzing malware or testing potentially harmful software without compromising the host system."
+    5. Test the Docker additional service:
+      Docker
+        Command:
+          docker run hello-world
+        Expected Output:
+          Hello World!
+        
 
