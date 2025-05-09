@@ -33,7 +33,7 @@ Make sure all the following points are respected.
 
 **Note:** If something does not work as expected or the two signatures differ, the evaluation stops here.
 
-
+---
 
 # Project Overview
 
@@ -73,7 +73,7 @@ Make sure all the following points are respected.
 
 **Note:** If the explanations are not clear, the evaluation stops here.
 
-
+---
 
 # Simple Configuration
 
@@ -163,7 +163,7 @@ Make sure all the following points are respected.
 
 **Note:** If something does not work as expected or is not clearly explained, the evaluation stops here.
 
-
+---
 
 # User
 
@@ -258,7 +258,7 @@ Make sure all the following points are respected.
 
 **Note:** If something does not work as expected or is not clearly explained, the evaluation stops here.
 
-
+---
 
 # Hostname and Partitions
 
@@ -362,7 +362,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 
 **Note:** If something does not work as expected or is not clearly explained, the evaluation stops here.
 
-
+---
 
 # SUDO
 
@@ -527,7 +527,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 
 **Note:** If something does not work as expected or is not clearly explained, the evaluation stops here.
 
-
+---
 
 # UFW / Firewalld
 
@@ -606,7 +606,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 
 **Note:** If something does not work as expected or is not clearly explained, the evaluation stops here.
 
-
+---
 
 # SSH
 
@@ -677,7 +677,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 
 **Note:** If something does not work as expected or is not clearly explained, the evaluation stops here.
 
-
+---
 
 # Script Monitoring
 
@@ -784,7 +784,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 
 **Note:** If any of the above points are not correct or clearly explained, the evaluation stops here.
 
-
+---
 
 # Bonus
 
