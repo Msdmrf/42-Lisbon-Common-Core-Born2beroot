@@ -950,11 +950,11 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
   **Expected:** No recurring errors.
 
 ### **WordPress**
-- **Check Homepage:**
+- **Check Homepage:**  
   URL: `http://127.0.0.1:2904/`
   **Expected:** WordPress homepage.
 
-- **Access Admin Dashboard:**
+- **Access Admin Dashboard:**  
   URL: `http://127.0.0.1:2904/wp-admin`
   **Expected:** Admin panel loads.
 
@@ -962,29 +962,29 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
   - Add a new post in the admin panel.
   - **Expected:** Post appears correctly.
 
-- **Test Media Uploads:**
+- **Test Media Uploads:**  
   - Upload a file in Media > Add New.
   - **Expected:** File uploads without errors.
 
-- **Test Plugin Installation:**
+- **Test Plugin Installation:**  
   - Install and activate a plugin (e.g., `Hello Dolly`).
   - **Expected:** Plugin works as expected.
 
-- **Test Theme Functionality:**
+- **Test Theme Functionality:**  
   - Switch to another theme (e.g., `Twenty Twenty-Three`).
   - **Expected:** New theme applied correctly.
 
 ## 4. Free-Choice Service (1 Point)
 
 ### **Docker**
-- **What is Docker?**
+- **What is Docker?**  
   "Docker is an open-source platform for deploying, scaling, and managing applications using lightweight containers."
 
-- **Usage in Project:**
+- **Usage in Project:**  
   - Simplifies service deployment.
   - Containers ensure consistency and independence.
 
-- **Reason for Choice:**
+- **Reason for Choice:**  
   "Docker is a key tool for future projects, especially in cybersecurity. It provides isolation and sandboxing, making it ideal for testing and analyzing potentially harmful software."
 
 ## 5. Test Docker Service
