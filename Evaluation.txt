@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 15:47:11 by migusant          #+#    #+#              #
-#    Updated: 2025/05/08 20:32:52 by migusant         ###   ########.fr        #
+#    Updated: 2025/05/09 20:19:48 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -381,7 +381,7 @@ UFW / Firewalld
       UFW Status Command:
         systemctl status ufw (displays whether the UFW service is active (running), inactive (stopped), or failed)
       Expected Output:
-         Active: active (running)
+         Active: active (exited)
     2. The evaluated person must give you a basic explanation of what UFW (or "Firewalld") is and why it's important to use it:
       "UFW (Uncomplicated Firewall) is a user-friendly frontend for managing iptables (the underlying Linux firewall). It simplifies the process 
       of managing firewall rules and is commonly used on Ubuntu/Debian-based systems. Both UFW and Firewalld help secure servers by controlling 

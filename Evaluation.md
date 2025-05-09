@@ -155,7 +155,7 @@ Make sure all the following points are respected.
   ```
 - **Expected Output:**  
   ```bash
-  Active: active (running)
+  Active: active (exited)
   ```
 
 ### 2.3 Verify SSH Service:
