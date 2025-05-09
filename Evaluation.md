@@ -1,17 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Evaluation.md                                      :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/05 15:47:11 by migusant          #+#    #+#              #
-#    Updated: 2025/05/09 15:42:45 by migusant         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-
-
 # Evaluation
 
 The project involves creating and configuring a virtual machine following strict rules. 
