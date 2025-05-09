@@ -429,7 +429,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 - **Expected Output:**  
   Most environment variables (e.g., PATH) are reset to a secure default when running `sudo env`.
 
-### 4.2 Rule: `mail_badpass`
+### 4.2 Rule: `mail_badpass` (if not installed, run mail_logging.sh)
 - **Purpose:** Sends an email to the system administrator if a user enters an incorrect sudo password.  
 - **Setup Commands:**  
   1. Install `mailutils`, `postfix`, and `rsyslog` if not already installed:
