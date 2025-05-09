@@ -148,7 +148,7 @@ Make sure all the following points are respected.
 - **Expected Output:**  
   - Output should clearly identify the OS as "Debian".
 
-### 2.2 Verify UFW Service:
+### 2.2 Verify UFW Interface:
 - **Command:**  
   ```bash
   systemctl status ufw
@@ -158,7 +158,7 @@ Make sure all the following points are respected.
   Active: active (exited)
   ```
 
-### 2.3 Verify SSH Service:
+### 2.3 Verify SSH Network Protocol:
 - **Command:**  
   ```bash
   systemctl status ssh
@@ -551,7 +551,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
   ```
 - **Expected Output:**  
   ```bash
-  Active: active (running)
+  Active: active (exited)
   ```
 
 ## 2. Explanation of UFW (or Firewalld)

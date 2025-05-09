@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/05 15:47:11 by migusant          #+#    #+#              #
-#    Updated: 2025/05/09 20:19:48 by migusant         ###   ########.fr        #
+#    Updated: 2025/05/09 20:25:26 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -123,13 +123,13 @@ Simple Configuration
           cat /etc/os-release
         Expected Output:
           The output should contain lines clearly identifying the OS as "Debian".
-      2.2 The UFW service is properly launched.
+      2.2 The UFW interface is properly launched.
         UFW Status Command:
           systemctl status ufw
         Expected Output:
-          Active: active (running)
-      2.3 The SSH service is properly launched. 
-        SSH Service Command:
+          Active: active (exited)
+      2.3 The SSH network protocol is properly launched. 
+        SSH status Command:
           systemctl status ssh
         Expected Output:
           Active: active (running)
@@ -377,7 +377,7 @@ SUDO
 
 UFW / Firewalld
   As soon as you need help to verify a point, the evaluated person must be able to assist you:
-    1. Verify that the "UFW" (or "Firewalld" for rocky) program is indeed installed on the virtual machine and that it is functioning correctly:
+    1. Verify that the "UFW" (or "Firewalld" for rocky) interface is indeed installed on the virtual machine and that it is functioning correctly:
       UFW Status Command:
         systemctl status ufw (displays whether the UFW service is active (running), inactive (stopped), or failed)
       Expected Output:
