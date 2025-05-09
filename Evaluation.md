@@ -639,7 +639,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 ## 2. Explanation of SSH
 
 - **Explanation:**  
-  `"SSH (Secure Shell) is a protocol that allows secure remote access to a server or computer over an encrypted connection. It enables users to execute commands and manage systems remotely while ensuring that data is protected from eavesdropping and tampering. It's important to use because it provides a secure way to manage servers, especially for administrators who need to remotely troubleshoot, configure, or monitor systems. It uses encryption to protect sensitive information, such as usernames, passwords, and commands."`
+  "SSH (Secure Shell) is a protocol that allows secure remote access to a server or computer over an encrypted connection. It enables users to execute commands and manage systems remotely while ensuring that data is protected from eavesdropping and tampering. It's important to use because it provides a secure way to manage servers, especially for administrators who need to remotely troubleshoot, configure, or monitor systems. It uses encryption to protect sensitive information, such as usernames, passwords, and commands."
 
 ## 3. Verify SSH Port Configuration
 
