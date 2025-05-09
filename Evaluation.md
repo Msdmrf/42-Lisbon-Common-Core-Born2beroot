@@ -951,10 +951,10 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 
 ### **WordPress**
 - **Check Homepage:** URL: `http://127.0.0.1:2904/`
-  **Expected:** WordPress homepage.
+- **Expected:** WordPress homepage.
 
 - **Access Admin Dashboard:** URL: `http://127.0.0.1:2904/wp-admin`
-  **Expected:** Admin panel loads.
+- **Expected:** Admin panel loads.
 
 - **Test Creating a Post:**
   - Add a new post in the admin panel.
