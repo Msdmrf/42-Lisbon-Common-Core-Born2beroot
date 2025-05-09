@@ -4,7 +4,7 @@ The project involves creating and configuring a virtual machine following strict
 The evaluated person will need to assist you during the defense. 
 Make sure all the following points are respected.
 
-
+---
 
 ## General Guidelines
 
