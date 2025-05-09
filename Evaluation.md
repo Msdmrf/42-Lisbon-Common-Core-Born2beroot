@@ -557,7 +557,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 ## 2. Explanation of UFW (or Firewalld)
 
 - **Explanation:**  
-  UFW (Uncomplicated Firewall) is a user-friendly frontend for managing iptables (the underlying Linux firewall). It simplifies the process of managing firewall rules and is commonly used on Ubuntu/Debian-based systems. Both UFW and Firewalld help secure servers by controlling inbound and outbound traffic. They allow only specific, trusted connections (e.g., SSH, HTTP/HTTPS) while blocking potentially malicious or unnecessary traffic. A properly configured firewall reduces the attack surface of a server and prevents unauthorized access.
+  "UFW (Uncomplicated Firewall) is a user-friendly frontend for managing iptables (the underlying Linux firewall). It simplifies the process of managing firewall rules and is commonly used on Ubuntu/Debian-based systems. Both UFW and Firewalld help secure servers by controlling inbound and outbound traffic. They allow only specific, trusted connections (e.g., SSH, HTTP/HTTPS) while blocking potentially malicious or unnecessary traffic. A properly configured firewall reduces the attack surface of a server and prevents unauthorized access."
 
 ## 3. List Active Rules
 
