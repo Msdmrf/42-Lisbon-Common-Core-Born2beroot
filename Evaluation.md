@@ -78,7 +78,7 @@ Make sure all the following points are respected.
      "APPArmor is a Linux security module that confines programs to predefined access rules, improving system security by limiting the resources a program can access."
 
 7. **Monitoring Script:**  
-   "I have created a monitoring script (`monitoring.sh`) located at `/etc/cron.d/monitoring.sh`. A cron job executes this script every 10 minutes. The output, containing system metrics, is broadcast to all logged-in user terminals using `wall`. Script and crontab content will be checked during the evaluation."
+   "I have created a monitoring script (`monitoring.sh`) which is located at `/root/monitoring.sh`, since i don't want users to be able to change it, not even with `sudo`. Then, I left the cron job in a `monitoring` file within the `/etc/cron.d/` directory. A cron job executes this script every 10 minutes. The output, containing system metrics, is broadcast to all logged-in user terminals using `wall`. Script and crontab content will be checked during the evaluation."
 
 **Note:** If the explanations are not clear, the evaluation stops here.
 
