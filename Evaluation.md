@@ -828,7 +828,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 ## 2. WordPress Setup (2 Points)
 
 ### **Lighttpd**
-- **What is Lighttpd?**
+- **What is Lighttpd?**  
   "Lighttpd (lighty) is a lightweight, high-performance web server designed for speed, security, and minimal resource usage."
 - **Usage in Project:**
   - Hosts WordPress.
@@ -837,7 +837,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
   - Enforces security by disabling directory listing and restricting access.
 
 ### **MariaDB**
-- **What is MariaDB?**
+- **What is MariaDB?**  
   "MariaDB is an open-source relational database system, widely used for managing structured data."
 - **Usage in Project:**
   - Backend for WordPress.
@@ -845,7 +845,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
   - Secured with a dedicated database (`wordpress`) and user (`wp_user`).
 
 ### **PHP**
-- **What is PHP?**
+- **What is PHP?**  
   "PHP is a server-side scripting language, widely used for creating dynamic web applications."
 - **Usage in Project:**
   - Processes WordPress dynamic content.
@@ -853,7 +853,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
   - Runs as a FastCGI app via PHP-FPM.
 
 ### **WordPress**
-- **What is WordPress?**
+- **What is WordPress?**  
   "WordPress is an open-source CMS for creating and managing websites."
 - **Usage in Project:**
   - Core platform for the website.
