@@ -697,7 +697,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 ### 1.1 Location:
 - **Script Location:** `/root/monitoring.sh`
 - **Reasoning:**  
-  `"I placed my monitoring.sh script in the /root directory to ensure that only the root user can access or modify it. By default, /root is restricted to root, adding an extra layer of security. Instead of placing the script in /etc/cron.d, I created a simple monitoring file in that directory containing only the cron job entry:  
+  "I placed my monitoring.sh script in the /root directory to ensure that only the root user can access or modify it. By default, /root is restricted to root, adding an extra layer of security. Instead of placing the script in /etc/cron.d, I created a simple monitoring file in that directory containing only the cron job entry:  
   ```bash
   */10 * * * * root bash /root/monitoring.sh | wall
   ```
@@ -717,7 +717,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 ## 3. Explanation of Cron
 
 - **Explanation:**  
-  `"Cron is a time-based job scheduler in Unix-like operating systems. It allows users to schedule scripts or commands to execute automatically at specified intervals (e.g., every 10 minutes, every day). Jobs are defined in a file called a crontab. Each job in the crontab specifies the minute, hour, day of the month, month, day of the week, and the command or script to execute."`
+  "Cron is a time-based job scheduler in Unix-like operating systems. It allows users to schedule scripts or commands to execute automatically at specified intervals (e.g., every 10 minutes, every day). Jobs are defined in a file called a crontab. Each job in the crontab specifies the minute, hour, day of the month, month, day of the week, and the command or script to execute."
 
 ## 4. Configure Script to Run Every 10 Minutes
 
@@ -728,7 +728,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
   */10 * * * * root bash /root/monitoring.sh | wall
   ```
 - **Explanation:**  
-  `"The cron job in /etc/cron.d ensures the script runs every 10 minutes as the root user. The wall command broadcasts the output to all logged-in users."`
+  "The cron job in /etc/cron.d ensures the script runs every 10 minutes as the root user. The wall command broadcasts the output to all logged-in users."
 
 ## 5. Change Cron Job to Run Every Minute
 
@@ -829,7 +829,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 
 ### **Lighttpd**
 - **What is Lighttpd?**
-  `"Lighttpd (lighty) is a lightweight, high-performance web server designed for speed, security, and minimal resource usage."`
+  "Lighttpd (lighty) is a lightweight, high-performance web server designed for speed, security, and minimal resource usage."
 - **Usage in Project:**
   - Hosts WordPress.
   - Processes PHP requests via `mod_fastcgi`.
@@ -838,7 +838,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 
 ### **MariaDB**
 - **What is MariaDB?**
-  `"MariaDB is an open-source relational database system, widely used for managing structured data."`
+  "MariaDB is an open-source relational database system, widely used for managing structured data."
 - **Usage in Project:**
   - Backend for WordPress.
   - Stores posts, pages, and settings.
@@ -846,7 +846,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 
 ### **PHP**
 - **What is PHP?**
-  `"PHP is a server-side scripting language, widely used for creating dynamic web applications."`
+  "PHP is a server-side scripting language, widely used for creating dynamic web applications."
 - **Usage in Project:**
   - Processes WordPress dynamic content.
   - Communicates with MariaDB.
@@ -854,7 +854,7 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 
 ### **WordPress**
 - **What is WordPress?**
-  `"WordPress is an open-source CMS for creating and managing websites."`
+  "WordPress is an open-source CMS for creating and managing websites."
 - **Usage in Project:**
   - Core platform for the website.
   - Installed in `/var/www/html/wordpress`.
@@ -978,14 +978,14 @@ LVM is a system for managing disk storage that abstracts the physical layout of 
 
 ### **Docker**
 - **What is Docker?**
-  `"Docker is an open-source platform for deploying, scaling, and managing applications using lightweight containers."`
+  "Docker is an open-source platform for deploying, scaling, and managing applications using lightweight containers."
 
 - **Usage in Project:**
   - Simplifies service deployment.
   - Containers ensure consistency and independence.
 
 - **Reason for Choice:**
-  `"Docker is a key tool for future projects, especially in cybersecurity. It provides isolation and sandboxing, making it ideal for testing and analyzing potentially harmful software."`
+  "Docker is a key tool for future projects, especially in cybersecurity. It provides isolation and sandboxing, making it ideal for testing and analyzing potentially harmful software."
 
 ## 5. Test Docker Service
 
