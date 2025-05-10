@@ -104,7 +104,7 @@ Make sure all the following points are respected.
 | **Recommended For**    | Quick and simple package management tasks.                             | Advanced package management or resolving complex dependency issues.      |
 
 7. **Monitoring Script:**  
-   "I have created a monitoring script (`monitoring.sh`) which is located at `/root/monitoring.sh`, since i don't want users to be able to change it, not even with `sudo`. Then, I left the cron job in a `monitoring` file within the `/etc/cron.d/` directory. This cron job executes this script at boot, and every 10 minutes. The output, containing system metrics, is broadcast to all logged-in user terminals using `wall`. Script and crontab content will be checked during the evaluation."
+   "I placed the monitoring script (`monitoring.sh`) in `/root/` to restrict access to it, ensuring only the root user can modify or delete it. This protects the script from unauthorized changes by regular users, even with `sudo`, which is critical for maintaining system security. Then I i used a cron job to automate its execution, ensuring consistent and uninterrupted monitoring of the system every 10 minutes. For that, i created a `monitoring` file within the `/etc/cron.d/` directory, and defined the cron job inside. The output, containing system metrics, is broadcast to all logged-in user terminals using `wall`.This approach solves the problem of ensuring operational integrity and early detection of system issues while safeguarding the script from tampering."
 
 **Note:** If the explanations are not clear, the evaluation stops here.
 
