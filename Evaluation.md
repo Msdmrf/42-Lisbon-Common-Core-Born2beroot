@@ -101,7 +101,7 @@ Make sure all the following points are respected.
 | **Recommended For**    | Quick and simple package management tasks.                             | Advanced package management or resolving complex dependency issues.      |
 
    - **APPArmor:**  
-     "APPArmor is a Linux security module that confines programs to predefined access rules, improving system security by limiting the resources a program can access."
+     "AppArmor is a Linux security module that enforces strict access controls based on application-specific profiles. It enhances system security by limiting what applications can do, even if they are compromised. With customizable and lightweight policies, AppArmor helps prevent unauthorized access and minimizes damage from potential breaches."
 
 7. **Monitoring Script:**  
    "I have created a monitoring script (`monitoring.sh`) which is located at `/root/monitoring.sh`, since i don't want users to be able to change it, not even with `sudo`. Then, I left the cron job in a `monitoring` file within the `/etc/cron.d/` directory. This cron job executes this script at boot, and every 10 minutes. The output, containing system metrics, is broadcast to all logged-in user terminals using `wall`. Script and crontab content will be checked during the evaluation."
