@@ -388,12 +388,6 @@ Make sure all the following points are respected.
   - **Volume Groups (VGs):** Combine one or more PVs into a single storage pool.  
   - **Logical Volumes (LVs):** Virtual partitions created from VGs, which can be formatted and mounted like regular partitions.  
 
-| **Components**              | **Details**                                                                 |
-|--------------------------|-----------------------------------------------------------------------------|
-| **Physical Volumes (PVs)** | Underlying physical storage devices like hard drives or SSDs.             |
-| **Volume Groups (VGs)**   | Combines PVs into a large storage pool.                                   |
-| **Logical Volumes (LVs)** | Flexible partitions created from the storage pool (VGs).                  |
-
 - **Example:**  
   - Create a volume group named `vg-root`.  
   - Create logical volumes like `lv-root` (for `/`) and `lv-swap` (for swap space).
@@ -403,15 +397,6 @@ Make sure all the following points are respected.
   - **Snapshots:** Create snapshots for backups or testing.  
   - **Disk Management:** Add more physical volumes to a volume group to increase storage without downtime.  
   - **Simplified Partitioning:** Create partitions on-the-fly without worrying about fixed sizes.
-
-| **Benefits**              | **Description**                                                           |
-|--------------------------|-----------------------------------------------------------------------------|
-| **Flexibility**           | Allows resizing volumes without unmounting or disrupting the system.      |
-| **Efficient Space Allocation** | Combines multiple physical disks into a single manageable pool.          |
-| **Snapshots**             | Enables snapshots for backups and testing purposes.                       |
-| **Ease of Management**    | Logical volumes can be moved or restructured without affecting data.       |
-| **Dynamic Resizing**       | Real-time adjustments to storage as needs change.                        |
-| **Redundancy**            | Supports RAID for improved data redundancy and fault tolerance.           |
 
 **Note:** If something does not work as expected or is not clearly explained, the evaluation stops here.
 
