@@ -57,7 +57,7 @@ Make sure all the following points are respected.
 3. **Basic Differences Between Rocky and Debian:**  
    "The main differences between Debian and Rocky Linux lie in their origins and target audience. Debian is an independent, community-driven distribution known for its stability, simplicity, and extensive software repositories. It uses the .deb package format and apt for package management, and AppArmor as its default security module. On the other hand, Rocky Linux is derived from Red Hat Enterprise Linux (RHEL) and is designed for enterprise use. It uses the .rpm package format and dnf for package management, with SELinux as its security module. While Debian is more versatile and beginner-friendly, Rocky Linux is tailored for enterprise environments, offering binary compatibility with RHEL and enterprise-grade tools."
 
-   | **Aspect**            | **Debian**                                                                 | **Rocky Linux**                                                             |
+| **Aspect**            | **Debian**                                                                 | **Rocky Linux**                                                             |
 |-----------------------|---------------------------------------------------------------------------|----------------------------------------------------------------------------|
 | **Origins**           | Independent, community-driven distribution.                              | Derived from Red Hat Enterprise Linux (RHEL), 1:1 binary compatible.       |
 | **Target Audience**   | Beginners to advanced users; versatile for personal and server use.      | Enterprise environments, especially as a CentOS replacement.               |
