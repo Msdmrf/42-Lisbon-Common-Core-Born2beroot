@@ -252,6 +252,7 @@ Make sure all the following points are respected.
     - `lcredit=-1` (at least one lowercase).  
     - `difok=7` (must differ from old password by 7 characters).  
     - `reject_username` (prevent using username in password).
+    - `enforce_for_root` (your root password also has to comply with this rules).
 
 ## 3. Create and Assign a New Group
 
