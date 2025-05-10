@@ -90,15 +90,15 @@ Make sure all the following points are respected.
    - **apt vs. aptitude:**  
      "apt and aptitude are both package management tools for Debian, but they serve slightly different purposes. apt is lightweight and straightforward, making it ideal for quick tasks such as installing or updating packages. On the other hand, aptitude provides an interactive interface and more intelligent dependency management, making it better suited for resolving complex dependency issues or exploring available packages. While apt is simpler, aptitude offers advanced features like detailed error messages and a menu-based interface for browsing packages."
 
-| **Aspect**             | **apt**                                                                 | **aptitude**                                                             |
-|------------------------|-------------------------------------------------------------------------|--------------------------------------------------------------------------|
-| **Interface**          | Command-line only.                                                     | Command-line and interactive text-based interface.                       |
-| **Dependency Handling**| Handles dependencies but may require manual intervention.              | More intelligent and automatic dependency resolution.                    |
-| **Ease of Use**        | Simple and straightforward for basic tasks.                            | Offers advanced features but may be more complex for beginners.          |
-| **Error Messages**     | Basic error messages.                                                  | Detailed error messages with suggestions for resolution.                 |
-| **Snapshot/History**   | Does not maintain a history of actions.                                | Maintains a history of previous actions, making rollbacks easier.        |
-| **Interactive Mode**   | Not available.                                                         | Includes a text-based menu for browsing and managing packages.           |
-| **Recommended For**    | Quick and simple package management tasks.                             | Advanced package management or resolving complex dependency issues.      |
+    | **Aspect**             | **apt**                                                                 | **aptitude**                                                             |
+    |------------------------|-------------------------------------------------------------------------|--------------------------------------------------------------------------|
+    | **Interface**          | Command-line only.                                                     | Command-line and interactive text-based interface.                       |
+    | **Dependency Handling**| Handles dependencies but may require manual intervention.              | More intelligent and automatic dependency resolution.                    |
+    | **Ease of Use**        | Simple and straightforward for basic tasks.                            | Offers advanced features but may be more complex for beginners.          |
+    | **Error Messages**     | Basic error messages.                                                  | Detailed error messages with suggestions for resolution.                 |
+    | **Snapshot/History**   | Does not maintain a history of actions.                                | Maintains a history of previous actions, making rollbacks easier.        |
+    | **Interactive Mode**   | Not available.                                                         | Includes a text-based menu for browsing and managing packages.           |
+    | **Recommended For**    | Quick and simple package management tasks.                             | Advanced package management or resolving complex dependency issues.      |
 
    - **APPArmor:**  
      "AppArmor is a Linux security module that enforces strict access controls based on application-specific profiles. It enhances system security by limiting what applications can do, even if they are compromised. With customizable and lightweight policies, AppArmor helps prevent unauthorized access and minimizes damage from potential breaches."
