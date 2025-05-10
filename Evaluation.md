@@ -88,7 +88,7 @@ Make sure all the following points are respected.
 
 6. **If the Chosen OS is Debian:**  
    - **apt vs. aptitude:**  
-     "apt and aptitude are both package management tools for Debian, but they serve slightly different purposes. apt is lightweight and straightforward, making it ideal for quick tasks such as installing or updating packages. On the other hand, aptitude provides an interactive interface and more intelligent dependency management, making it better suited for resolving complex dependency issues or exploring available packages. While apt is simpler, aptitude offers advanced features like detailed error messages and a menu-based interface for browsing packages."
+     "apt and aptitude are both package management tools for Debian, but they serve slightly different purposes. apt is lightweight and straightforward, making it ideal for quick tasks such as installing or updating packages. On the other hand, aptitude provides an interactive interface and more intelligent dependency management, making it better suited for resolving complex dependency issues or exploring available packages. While apt is simpler, aptitude offers advanced features like detailed error messages and a menu-based interface for browsing packages."  
 
     | **Aspect**             | **apt**                                                                 | **aptitude**                                                             |
     |------------------------|-------------------------------------------------------------------------|--------------------------------------------------------------------------|
