@@ -87,21 +87,21 @@ Make sure all the following points are respected.
      "DNF (Dandified YUM) is the high-level package manager for Rocky Linux, used to install, update, and manage `.rpm` packages. It improves dependency resolution and performance compared to yum."
 
 6. **If the Chosen OS is Debian:**  
-   - **apt vs. aptitude:**  
-     "apt and aptitude are both package management tools for Debian, but they serve slightly different purposes. apt is lightweight and straightforward, making it ideal for quick tasks such as installing or updating packages. On the other hand, aptitude provides an interactive interface and more intelligent dependency management, making it better suited for resolving complex dependency issues or exploring available packages. While apt is simpler, aptitude offers advanced features like detailed error messages and a menu-based interface for browsing packages."  
-
-    | **Aspect**             | **apt**                                                                 | **aptitude**                                                             |
-    |------------------------|-------------------------------------------------------------------------|--------------------------------------------------------------------------|
-    | **Interface**          | Command-line only.                                                     | Command-line and interactive text-based interface.                       |
-    | **Dependency Handling**| Handles dependencies but may require manual intervention.              | More intelligent and automatic dependency resolution.                    |
-    | **Ease of Use**        | Simple and straightforward for basic tasks.                            | Offers advanced features but may be more complex for beginners.          |
-    | **Error Messages**     | Basic error messages.                                                  | Detailed error messages with suggestions for resolution.                 |
-    | **Snapshot/History**   | Does not maintain a history of actions.                                | Maintains a history of previous actions, making rollbacks easier.        |
-    | **Interactive Mode**   | Not available.                                                         | Includes a text-based menu for browsing and managing packages.           |
-    | **Recommended For**    | Quick and simple package management tasks.                             | Advanced package management or resolving complex dependency issues.      |
-
    - **APPArmor:**  
      "AppArmor is a Linux security module that enforces strict access controls based on application-specific profiles. It enhances system security by limiting what applications can do, even if they are compromised. With customizable and lightweight policies, AppArmor helps prevent unauthorized access and minimizes damage from potential breaches."
+   
+   - **apt vs. aptitude:**  
+     "apt and aptitude are both package management tools for Debian, but they serve slightly different purposes. apt is lightweight and straightforward, making it ideal for quick tasks such as installing or updating packages. On the other hand, aptitude provides an interactive interface and more intelligent dependency management, making it better suited for resolving complex dependency issues or exploring available packages. While apt is simpler, aptitude offers advanced features like detailed error messages and a menu-based interface for browsing packages."
+
+| **Aspect**             | **apt**                                                                 | **aptitude**                                                             |
+|------------------------|-------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| **Interface**          | Command-line only.                                                     | Command-line and interactive text-based interface.                       |
+| **Dependency Handling**| Handles dependencies but may require manual intervention.              | More intelligent and automatic dependency resolution.                    |
+| **Ease of Use**        | Simple and straightforward for basic tasks.                            | Offers advanced features but may be more complex for beginners.          |
+| **Error Messages**     | Basic error messages.                                                  | Detailed error messages with suggestions for resolution.                 |
+| **Snapshot/History**   | Does not maintain a history of actions.                                | Maintains a history of previous actions, making rollbacks easier.        |
+| **Interactive Mode**   | Not available.                                                         | Includes a text-based menu for browsing and managing packages.           |
+| **Recommended For**    | Quick and simple package management tasks.                             | Advanced package management or resolving complex dependency issues.      |
 
 7. **Monitoring Script:**  
    "I have created a monitoring script (`monitoring.sh`) which is located at `/root/monitoring.sh`, since i don't want users to be able to change it, not even with `sudo`. Then, I left the cron job in a `monitoring` file within the `/etc/cron.d/` directory. This cron job executes this script at boot, and every 10 minutes. The output, containing system metrics, is broadcast to all logged-in user terminals using `wall`. Script and crontab content will be checked during the evaluation."
