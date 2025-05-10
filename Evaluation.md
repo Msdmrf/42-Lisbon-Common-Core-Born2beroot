@@ -398,15 +398,11 @@ Make sure all the following points are respected.
   - **Disk Management:** Add more physical volumes to a volume group to increase storage without downtime.  
   - **Simplified Partitioning:** Create partitions on-the-fly without worrying about fixed sizes.
 
-## How LVM Works
-
 | **Aspect**              | **Details**                                                                 |
 |--------------------------|-----------------------------------------------------------------------------|
 | **Physical Volumes (PVs)** | Underlying physical storage devices like hard drives or SSDs.             |
 | **Volume Groups (VGs)**   | Combines PVs into a large storage pool.                                   |
 | **Logical Volumes (LVs)** | Flexible partitions created from the storage pool (VGs).                  |
-
-## Benefits of LVM
 
 | **Benefit**              | **Description**                                                           |
 |--------------------------|-----------------------------------------------------------------------------|
