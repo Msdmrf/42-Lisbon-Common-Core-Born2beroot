@@ -251,6 +251,7 @@ Make sure all the following points are respected.
     - `ucredit=-1` (at least one uppercase).  
     - `lcredit=-1` (at least one lowercase).  
     - `difok=7` (must differ from old password by 7 characters).  
+    - `maxrepeat=3` (maximum number of repeating characters is 3).      
     - `reject_username` (prevent using username in password).
     - `enforce_for_root` (your root password also has to comply with this rules).
 
