@@ -380,9 +380,9 @@ Make sure all the following points are respected.
 
 ## 3. Explanation of LVM (Logical Volume Management)
 
-- **Purpose:** 
+- **Purpose:**  
   LVM is a system for managing disk storage that abstracts the physical layout of the disks. It provides flexibility, simplifies disk management and adds a layer of abstraction between physical storage and the operating system, making storage management more versatile and less error-prone.  
-  
+
 - **Components:**  
   - **Physical Volumes (PVs):** Actual physical drives or partitions (e.g., `/dev/sda2`).  
   - **Volume Groups (VGs):** Combine one or more PVs into a single storage pool.  
