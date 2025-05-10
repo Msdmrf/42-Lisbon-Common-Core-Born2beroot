@@ -250,7 +250,6 @@ Make sure all the following points are respected.
     - `dcredit=-1` (at least one digit).  
     - `ucredit=-1` (at least one uppercase).  
     - `lcredit=-1` (at least one lowercase).  
-    - `ocredit=-1` (at least one special character).  
     - `difok=7` (must differ from old password by 7 characters).  
     - `reject_username` (prevent using username in password).
 
