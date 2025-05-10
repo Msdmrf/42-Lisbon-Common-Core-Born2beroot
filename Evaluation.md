@@ -68,13 +68,24 @@ Make sure all the following points are respected.
 | **Ease of Use**       | Beginner-friendly, with simple installation and configuration.           | More advanced; trickier installation and aimed at experienced admins.      |
 | **Use Cases**         | General-purpose OS for personal use, servers, and embedded systems.      | Ideal for corporate servers, enterprise applications, and RHEL workflows.  |
 
-4. **Benefits of Virtual Machines:**  
+4. **Benefits of Virtual Machines:**
+   "As we are learning system administration, we don’t want to risk messing up our host OS configuration. Virtual machines provide a safe and isolated environment to test, fail, and try again while keeping the host OS intact. VMs isolate the guest OS from the host, ensuring any errors or misconfigurations don’t affect the host system. Additionally, VMs allow us to take snapshots, which make it easy to revert to a previous state if something goes wrong. This is especially useful when making significant changes to system configurations. VMs also enable resource consolidation, allowing multiple guest systems to run on the same physical hardware, and their portability means we can easily move VM images between machines for testing or deployment."
+
    "Virtual machines offer several key benefits:  
       - **Isolation:** They provide a sandboxed environment, separating the guest OS from the host.  
       - **Resource Consolidation:** Multiple VMs can run on a single physical machine, making efficient use of hardware resources.  
       - **Snapshots:** You can save the state of a VM at any point (a snapshot) and easily revert to it if something goes wrong.  
       - **Testing & Development:** VMs allow easy creation of specific, reproducible environments for development or testing software.  
       - **Portability:** VM images can often be moved and run on different physical computers."
+
+| **Benefit**            | **Description**                                                                                       | **Application in Born2beroot**                                                                 |
+|------------------------|------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| **Host OS Protection** | VMs isolate the guest OS from the host, ensuring any misconfigurations or errors don't affect the host.| Safely experiment with system administration tasks without risking the host's OS integrity.   |
+| **Sandboxing**         | Provides a secure environment to test and fail without real-world consequences.                      | Test services, configurations, and security tools in a controlled environment.               |
+| **Snapshots**          | Save the VM state before making changes and revert if something goes wrong.                         | Revert to a stable state during critical system configuration changes.                       |
+| **Resource Efficiency**| Multiple VMs can run on a single physical machine, sharing hardware resources.                      | Efficiently utilize host hardware while setting up the project VM.                           |
+| **Portability**        | VM images can be moved between machines and restored easily.                                         | Share or back up the VM to continue working on the project from another machine.             |
+| **Learning Environment** | VMs provide a controlled environment ideal for learning and experimentation.                        | Practice user management, firewall setup, SSH configuration, and other sysadmin tasks safely.|
 
 5. **If the Chosen OS is Rocky:**
    - **SELinux:**  
