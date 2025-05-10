@@ -68,7 +68,7 @@ Make sure all the following points are respected.
 | **Ease of Use**       | Beginner-friendly, with simple installation and configuration.           | More advanced; trickier installation and aimed at experienced admins.      |
 | **Use Cases**         | General-purpose OS for personal use, servers, and embedded systems.      | Ideal for corporate servers, enterprise applications, and RHEL workflows.  |
 
-4. **Benefits of Virtual Machines:**
+4. **Benefits of Virtual Machines:**  
    "As we are learning system administration, we don’t want to risk messing up our host OS configuration. Virtual machines provide a safe and isolated environment to test, fail, and try again while keeping the host OS intact. VMs isolate the guest OS from the host, ensuring any errors or misconfigurations don’t affect the host system. Additionally, VMs allow us to take snapshots, which make it easy to revert to a previous state if something goes wrong. This is especially useful when making significant changes to system configurations. VMs also enable resource consolidation, allowing multiple guest systems to run on the same physical hardware, and their portability means we can easily move VM images between machines for testing or deployment."
 
 | **Benefit**            | **Description**                                                                                       | **Application in Born2beroot**                                                                 |
