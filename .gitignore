@@ -37,3 +37,7 @@ Thumbs.db
 .idea/
 *.swp
 *~
+
+# Extra #
+#######################
+Evaluation.txt
