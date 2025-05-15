@@ -1,0 +1,43 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Apache2.txt                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/15 22:55:35 by migusant          #+#    #+#              #
+#    Updated: 2025/05/15 23:06:24 by migusant         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Change apache2 port to 8080:
+sudo systemctl stop apache2
+sudo nano /etc/apache2/ports.conf
+"Listen 80" -> "Listen 8080"
+
+Check Virtual Host Configuration:
+sudo nano /etc/apache2/sites-available/000-default.conf
+"<VirtualHost *:80>" -> "<VirtualHost *:8080>"
+
+Check UFW Rules:
+sudo ufw status
+sudo ufw allow 8080/tcp
+
+Edit the Apache2 configuration file:
+sudo nano /etc/apache2/apache2.conf
+# Add this line at the end of apache2.conf
+"ServerName migusant42"
+or 
+"ServerName 10.12.243.164"
+
+Test the configuration:
+sudo apache2ctl configtest
+"Syntax OK"
+
+Restart Apache2 to apply changes:
+sudo systemctl daemon-reload
+sudo systemctl start apache2
+sudo systemctl status apache2
+
+
+
