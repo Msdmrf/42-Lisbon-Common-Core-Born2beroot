@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 17:58:22 by migusant          #+#    #+#              #
-#    Updated: 2025/05/15 21:34:47 by migusant         ###   ########.fr        #
+#    Updated: 2025/05/15 21:35:13 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,6 @@ StartLimitIntervalSec=0
 
 [Install]
 WantedBy=multi-user.target
-
 EOL
 
 # Set proper permissions
