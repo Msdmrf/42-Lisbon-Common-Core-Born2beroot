@@ -6,7 +6,7 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 17:58:22 by migusant          #+#    #+#              #
-#    Updated: 2025/05/15 18:32:22 by migusant         ###   ########.fr        #
+#    Updated: 2025/05/15 21:34:47 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,18 +22,30 @@ fi
 cat > /etc/systemd/system/serveo-tunnel.service << 'EOL'
 [Unit]
 Description=Serveo SSH Tunnel
-After=network.target
+After=network-online.target
+Wants=network-online.target
 
 [Service]
+Type=simple
 User=migusant
 WorkingDirectory=/home/migusant
 Environment="HOME=/home/migusant"
-ExecStart=/usr/bin/ssh -R 4242:localhost:4242 serveo.net -N
+
+ExecStartPre=/bin/sh -c 'mkdir -p /home/migusant/.ssh && chmod 700 /home/migusant/.ssh'
+ExecStartPre=/bin/sh -c 'touch /home/migusant/.ssh/known_hosts && chmod 644 /home/migusant/.ssh/known_hosts'
+
+ExecStartPre=/bin/sh -c 'ssh-keygen -R serveo.net 2>/dev/null || true'
+ExecStartPre=/bin/sh -c '/usr/bin/ssh-keyscan -H serveo.net >> /home/migusant/.ssh/known_hosts 2>/dev/null'
+
+ExecStart=/usr/bin/ssh -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes -o StrictHostKeyChecking=accept-new -R 4242:localhost:4242 serveo.net -N
+
 Restart=always
 RestartSec=10
+StartLimitIntervalSec=0
 
 [Install]
 WantedBy=multi-user.target
+
 EOL
 
 # Set proper permissions
