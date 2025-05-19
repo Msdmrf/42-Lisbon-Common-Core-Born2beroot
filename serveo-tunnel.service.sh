@@ -6,9 +6,13 @@
 #    By: migusant <migusant@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/15 17:58:22 by migusant          #+#    #+#              #
-#    Updated: 2025/05/15 21:35:13 by migusant         ###   ########.fr        #
+#    Updated: 2025/05/19 12:08:27 by migusant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+# For this service to work properly, make sure:
+#   - Settings -> Network -> Advanced -> Port Fowarding -> "Delete SSH Rule."
+#   - Settings -> Network -> Attached to: Bridged Adapter -> Name: enp0s****
 
 #!/bin/bash
 
