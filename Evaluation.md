@@ -130,7 +130,7 @@ Make sure all the following points are respected.
   Example Password: `M1gusant42us3r`  
 - **Password Policies Command:**  
   ```bash
-  sudo chage -l migusant
+  chage -l migusant
   ```
   - **Expiration:** Password must expire every 30 days.  
   - **Minimum Days Before Modification:** 2 days.  
@@ -177,7 +177,7 @@ Make sure all the following points are respected.
 ### 2.2 Verify UFW Interface:
 - **Command:**  
   ```bash
-  systemctl status ufw
+  sudo systemctl status ufw
   ```
 - **Expected Output:**  
   ```bash
@@ -187,7 +187,7 @@ Make sure all the following points are respected.
 ### 2.3 Verify SSH Network Protocol:
 - **Command:**  
   ```bash
-  systemctl status ssh
+  sudo systemctl status ssh
   ```
 - **Expected Output:**  
   ```bash
